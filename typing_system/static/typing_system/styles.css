@@ -13,7 +13,7 @@ body {
 .flex-container {
     display: flex;
     flex-direction:column;
-    width:50%;
+    width:80%;
     height:100vh;
     margin: 0 auto;
 }
@@ -55,7 +55,7 @@ body {
     color: #81BCC5;
     font-size:2.5rem;
 }
-span {
+.word {
     margin: 0 6px;
 }
 span .incorrect {
