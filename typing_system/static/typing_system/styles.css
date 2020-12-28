@@ -58,6 +58,13 @@ body {
 .word {
     margin: 5px .5rem;
 }
+span .curr-letter {
+    border-bottom: 3px solid;
+    animation-name:blink_bottom;
+    animation-duration:.6s;
+    animation-direction:alternate;
+    animation-iteration-count:infinite;
+}
 span .incorrect-letter {
     color: #df153e;
 }
@@ -66,4 +73,28 @@ span .correct-letter {
 }
 span .letter {
 
+}
+/* text cursor & animations */
+/* @keyframes blink_cursor {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+#cursor {
+    display:inline-block;
+    height:1.5rem;
+    width: 2px;
+    background-color: #a57c80;
+    animation-name:blink_cursor;
+    animation-duration: .6s;
+    animation-iteration-count: infinite;
+    animation-direction:alternate;
+} */
+@keyframes blink_bottom {
+    from {
+        border-bottom-color:#a57c80;
+    }
+    to {
+        border-bottom-color:transparent;
+    }
 }
