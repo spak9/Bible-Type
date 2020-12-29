@@ -1,5 +1,5 @@
 let type_area = document.querySelector(".type-area");
-let verse = "For.!/123)9 God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
+let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
 let verse_words = []; // array of string; the 'verse' tokenized
 let words = []; // array of HTML Span objects
 let cursor = document.getElementById("cursor"); // the text cursor
@@ -74,65 +74,90 @@ $(document).ready(function() {
             // if 'Shift', just ignore
             if (e.key === "Shift") return;
         }
-        // The 2nd sequential key, or 1st without 'Shift'
 
-        // case 1. correct input
-        if (e.key === arrayOfLetters[j].innerHTML) {
-            // edge case for iterating to the next word
-            if ((words[i].childElementCount - 1) === j) {
-                arrayOfLetters[j].classList.add("correct-letter");
-                arrayOfLetters[j].classList.remove("curr-letter");
-                // update the word
-                i++;
-                j = 0;
-                arrayOfLetters = words[i].children;
+        // case 3. space; iterate to next word
+        if (e.key === " ") {
+            // special cases: when curr-letter-right is on.
+            // j will always be 1 ahead of last usable letter
+            if (j >= verse_words[i].length) {
+                j--;
+            }
+            arrayOfLetters[j].classList.remove("curr-letter", "curr-letter-right");
+            i++;
+            j = 0;
+            arrayOfLetters = words[i].children;
+            arrayOfLetters[j].classList.add("curr-letter");
+        }
+        // case 2. backspace; go back to prior letter, if applicable
+        else if (e.key === "Backspace") {
+            // special cases for appended letters
+
+            // for last letter
+            if (j === verse_words[i].length) {
+                j--;
+                arrayOfLetters[j].classList = "";
                 arrayOfLetters[j].classList.add("curr-letter");
                 return;
             }
-            arrayOfLetters[j].classList.add("correct-letter");
-            arrayOfLetters[j].classList.remove("curr-letter");
-            j++;
-            arrayOfLetters[j].classList.add("curr-letter");
-        }
-        // case 2. backspace
-        else if (e.key === "Backspace") {
-            // edge case when 1st letter is curr-letter, then
-            // then go back to the previous word if possible
-            if (j === 0) {
-                // go back to prior word
-                if (i > 0) {
-                    arrayOfLetters[j].classList.remove("curr-letter");
-                    i--;
-                    j = words[i].childElementCount - 1;
-                    arrayOfLetters = words[i].children;
-                    arrayOfLetters[j].classList.remove("correct-letter");
-                    arrayOfLetters[j].classList.add("curr-letter");
-                    return;
-                }
-                else return;
+            // for appended letters
+            else if (j > verse_words[i].length) {
+                j--;
+                arrayOfLetters[j].remove();
+                arrayOfLetters[j-1].classList.add("curr-letter-right");
+                return;
             }
-            arrayOfLetters[j].classList.remove("curr-letter");
+            // for j == 0, don't disappear!
+            else if (j === 0) return;
             arrayOfLetters[j].classList = "";
             j--;
             arrayOfLetters[j].classList = "";
             arrayOfLetters[j].classList.add("curr-letter");
+            return;
         }
-        // case 3. incorrect case
-        else {
-            // edge case for iterating to the next word
-            if ((words[i].childElementCount - 1) === j) {
-                arrayOfLetters[j].classList.add("incorrect-letter");
-                arrayOfLetters[j].classList.remove("curr-letter");
-                // update the word
-                i++;
-                j = 0;
-                arrayOfLetters = words[i].children;
-                arrayOfLetters[j].classList.add("curr-letter");
+
+        // case 0. Need to append extra letters
+
+        // User reaches end of word, that is
+        // j >= words[i].length(), then move cursor to right-side
+        else if (j >= verse_words[i].length) {
+            // Common case: appending words
+            arrayOfLetters[j-1].classList.remove("curr-letter-right");
+            let letter = document.createElement("span");
+            letter.classList.add("letter")
+            letter.classList.add("curr-letter-right");
+            letter.classList.add("extra-letter");
+            letter.innerHTML = e.key;
+            words[i].appendChild(letter);
+            j++;
+            return;
+
+        }
+
+        // case 1. correct input
+        else if (e.key === arrayOfLetters[j].innerHTML) {
+            arrayOfLetters[j].classList.add("correct-letter");
+            arrayOfLetters[j].classList.remove("curr-letter");
+            j++;
+            // ONLY FOR LAST LETTER, not appending
+            if (j >= verse_words[i].length) {
+                // Uncommon case: user reaches the end of the word
+                arrayOfLetters[j-1].classList.add("curr-letter-right");
                 return;
             }
+            arrayOfLetters[j].classList.add("curr-letter");
+
+        }
+        // case 4. incorrect case
+        else {
             arrayOfLetters[j].classList.add("incorrect-letter");
             arrayOfLetters[j].classList.remove("curr-letter");
             j++;
+            // ONLY FOR LAST LETTER, not appending
+            if (j >= verse_words[i].length) {
+                // Uncommon case: user reaches the end of the word
+                arrayOfLetters[j-1].classList.add("curr-letter-right");
+                return;
+            }
             arrayOfLetters[j].classList.add("curr-letter");
         }
 

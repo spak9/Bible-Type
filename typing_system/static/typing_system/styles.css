@@ -1,3 +1,11 @@
+/* CSS Variables */
+:root {
+    --background-color: #625772;
+    --text-color: #fefaec;
+    --correct-color:#a9eee6;
+    --incorrect-color:#f38181;
+    --appended-color:#ef4f4f;
+}
 /* General */
 * {
     margin: 0;
@@ -6,8 +14,8 @@
 }
 body {
     font-family: 'Roboto Mono', monospace;
-    background-color: #3B3B43;
-    color: #81BCC5;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 /* Main Content */
 .flex-container {
@@ -26,21 +34,21 @@ body {
 }
 .navbar a {
     text-decoration:none;
-    border-bottom:1px solid transparent;
+    border-bottom:1px solid var(--text-color);
     transition: border-bottom ease-in-out .25s;
 }
 .navbar a:hover {
-    border-color:#81BCC5;
+    border-color:transparent;
 }
 .link {
     display:inline-block;
     margin-right:1.5rem;
-    color: #81BCC5;
+    color: var(--text-color);
     font-size:1.5rem;
 }
 .logo {
     display:inline-block;
-    color: #81BCC5;
+    color: var(--text-color);
     font-size:1.5rem;
     margin-right:auto;
 }
@@ -52,49 +60,55 @@ body {
     width:80%;
     /* border:solid 2px #81BCC5;*/
     margin: auto auto;
-    color: #81BCC5;
-    font-size:2.5rem;
+    color: var(--text-color);
+    font-size:2rem;
 }
 .word {
     margin: 5px .5rem;
 }
 span .curr-letter {
-    border-bottom: 3px solid;
-    animation-name:blink_bottom;
+    box-shadow: inset 2px 0 0 0;
+    animation-name:text-cursor;
+    animation-duration:.6s;
+    animation-direction:alternate;
+    animation-iteration-count:infinite;
+}
+span .curr-letter-right {
+    box-shadow: inset -2px 0 0 0;
+    animation-name:text-cursor-right;
     animation-duration:.6s;
     animation-direction:alternate;
     animation-iteration-count:infinite;
 }
 span .incorrect-letter {
-    color: #df153e;
+    color: var(--incorrect-color);
 }
 span .correct-letter {
-    color: #DFC659;
+    color: var(--correct-color);
 }
 span .letter {
-
+    display:inline-block;
+    text-align:right;
+}
+span .extra-letter{
+    color: var(--appended-color);
 }
 /* text cursor & animations */
-/* @keyframes blink_cursor {
-    from {opacity: 1;}
-    to {opacity: 0;}
-}
 
-#cursor {
-    display:inline-block;
-    height:1.5rem;
-    width: 2px;
-    background-color: #a57c80;
-    animation-name:blink_cursor;
-    animation-duration: .6s;
-    animation-iteration-count: infinite;
-    animation-direction:alternate;
-} */
-@keyframes blink_bottom {
+@keyframes text-cursor {
     from {
-        border-bottom-color:#a57c80;
+        box-shadow: inset 2px 0 0 0 #a57c80;
     }
     to {
-        border-bottom-color:transparent;
+        box-shadow: inset 2px 0 0 0 transparent;
+    }
+}
+
+@keyframes text-cursor-right {
+    from {
+        box-shadow: inset -2px 0 0 0 #a57c80;
+    }
+    to {
+        box-shadow: inset -2px 0 0 0 transparent;
     }
 }
