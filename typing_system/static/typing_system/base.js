@@ -1,56 +1,28 @@
+/*
+    Global variables
+*/
 let type_area = document.querySelector(".type-area");
 let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
 let verse_words = []; // array of string; the 'verse' tokenized
 let words = []; // array of HTML Span objects
 let cursor = document.getElementById("cursor"); // the text cursor
-let x = 0;
+let i, j; // indices
+
 
 /*
-    tokenize a given verse based on " ", that is
-    spaces, resulting into array of words
+
 */
-function tokenizeVerse() {
-    verse.split(" ").forEach(function(elem) {
-        // our span
-        let word = document.createElement("span");
-        // span's text = elem
-        // word.innerHTML = elem;
-        word.classList.add("word")
-        type_area.appendChild(word);
-
-        // append to their respective lists
-        words.push(word);
-        verse_words.push(elem);
-        });
-}
-
-/*
-    Tokenize a given list of words based on "", that is
-    by the character, resulting in a mapping of
-    <span> <--> characters
-*/
-function tokenizeWords(i) {
-    let word_text = verse_words[i]; // string
-    word_text.split("").forEach(function(elem) {
-        // span for letter
-        let letter = document.createElement("span");
-        letter.classList.add("letter")
-        letter.innerHTML = elem;
-        words[i].appendChild(letter);
-    });
-}
-
 tokenizeVerse();
-let i;
 for (i = 0; i < words.length; i++) {
     tokenizeWords(i);
 }
 
+
 $(document).ready(function() {
     // index for the array of words
-    let i = 0;
+    i = 0;
     // index for letters within a word
-    let j = 0;
+    j = 0;
 
     // length of the i-th word
     // Ex: 'For' = 3
@@ -163,3 +135,38 @@ $(document).ready(function() {
 
     });
 });
+
+/*
+    tokenize a given verse based on " ", that is
+    spaces, resulting into array of words
+*/
+function tokenizeVerse() {
+    verse.split(" ").forEach(function(elem) {
+        // our span
+        let word = document.createElement("span");
+        // span's text = elem
+        // word.innerHTML = elem;
+        word.classList.add("word")
+        type_area.appendChild(word);
+
+        // append to their respective lists
+        words.push(word);
+        verse_words.push(elem);
+        });
+}
+
+/*
+    Tokenize a given list of words based on "", that is
+    by the character, resulting in a mapping of
+    <span> <--> characters
+*/
+function tokenizeWords(i) {
+    let word_text = verse_words[i]; // string
+    word_text.split("").forEach(function(elem) {
+        // span for letter
+        let letter = document.createElement("span");
+        letter.classList.add("letter")
+        letter.innerHTML = elem;
+        words[i].appendChild(letter);
+    });
+}
