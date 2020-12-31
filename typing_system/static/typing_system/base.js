@@ -39,16 +39,20 @@ $(document).ready(function() {
         The main functionality, the handler to a keydown.
     */
     $(document).keydown(function(e) {
-        // if 'Shift' key is used, then it must be used in
-        // combination and will come in sequence;
-        // 'Shift + a'. We want to ignore the 'Shift' key
-        if (e.shiftKey) {
-            // if 'Shift', just ignore
-            if (e.key === "Shift") return;
-        }
+        // Ignore special/modifier keys
+        if (e.key === "Shift" ||
+            e.key === "Alt" ||
+            e.key === "Control" ||
+            e.key === "Meta" ||
+            e.key === "CapsLock" ||
+            e.key === "Tab") return;
 
-        // case 3. space; iterate to next word
+        // case 1. space; iterate to next word
         if (e.key === " ") {
+            // end the game if user is on the last word
+            if (i === words.length - 1) {
+                alert("Done!");
+            }
             // special cases: when curr-letter-right is on.
             // j will always be 1 ahead of last usable letter
             if (j >= verse_words[i].length) {
@@ -79,7 +83,9 @@ $(document).ready(function() {
                 return;
             }
             // for j == 0, don't disappear!
-            else if (j === 0) return;
+            else if (j === 0) {
+                return;
+            }
             arrayOfLetters[j].classList = "";
             j--;
             arrayOfLetters[j].classList = "";
@@ -87,10 +93,10 @@ $(document).ready(function() {
             return;
         }
 
-        // case 0. Need to append extra letters
+        // case 3. Need to append extra letters
 
         // User reaches end of word, that is
-        // j >= words[i].length(), then move cursor to right-side
+        // j >= words[i].length(), then move cursor to 'right-side'
         else if (j >= verse_words[i].length) {
             // Common case: appending words
             arrayOfLetters[j-1].classList.remove("curr-letter-right");
@@ -105,7 +111,7 @@ $(document).ready(function() {
 
         }
 
-        // case 1. correct input
+        // case 4. correct input
         else if (e.key === arrayOfLetters[j].innerHTML) {
             arrayOfLetters[j].classList.add("correct-letter");
             arrayOfLetters[j].classList.remove("curr-letter");
@@ -119,7 +125,7 @@ $(document).ready(function() {
             arrayOfLetters[j].classList.add("curr-letter");
 
         }
-        // case 4. incorrect case
+        // case 5. incorrect case
         else {
             arrayOfLetters[j].classList.add("incorrect-letter");
             arrayOfLetters[j].classList.remove("curr-letter");
