@@ -2,12 +2,13 @@
     Global variables
 */
 let type_area = document.querySelector(".type-area");
-let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
+let verse = "For God so";
+//let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
 let verse_words = []; // array of string; the 'verse' tokenized
 let words = []; // array of HTML Span objects
 let cursor = document.getElementById("cursor"); // the text cursor
 let i, j; // indices
-
+let start_time, end_time; // Date objects for getting the wpm
 
 /*
 
@@ -39,6 +40,8 @@ $(document).ready(function() {
         The main functionality, the handler to a keydown.
     */
     $(document).keydown(function(e) {
+        // start the timer from the 1st press
+        if (start_time === undefined) start_time = new Date().getTime();
         // Ignore special/modifier keys
         if (e.key === "Shift" ||
             e.key === "Alt" ||
@@ -51,7 +54,9 @@ $(document).ready(function() {
         if (e.key === " ") {
             // end the game if user is on the last word
             if (i === words.length - 1) {
-                alert("Done!");
+                end_time = new Date().getTime();
+                getWPM();
+                return;
             }
             // special cases: when curr-letter-right is on.
             // j will always be 1 ahead of last usable letter
@@ -139,6 +144,7 @@ $(document).ready(function() {
             arrayOfLetters[j].classList.add("curr-letter");
         }
 
+
     });
 });
 
@@ -175,4 +181,44 @@ function tokenizeWords(i) {
         letter.innerHTML = elem;
         words[i].appendChild(letter);
     });
+}
+
+/*
+    Get the difference between end & start times
+    for calculating wpm
+
+    - From `MonkeyType`,
+    "wpm - total amount of characters in the correctly typed words
+    (including spaces), divided by 5 and normalised to 60 seconds."
+    - wpm = [(characters in correct words) / 5 * 60 secs] / total seconds
+*/
+function getWPM() {
+    let i, j;
+    // loop through all the word spans, and if they're "correct"
+    // words, that is, all letter spans are correct, then
+    // add it to correct characters
+    let correct_letters = 0;
+    let total = 0;
+    let arrayOfLetters;
+    for (i = 0; i < words.length; i++) {
+        // let correct_letters = 0;
+        arrayOfLetters = words[i].children;
+        for (j = 0; j < arrayOfLetters.length; j++) {
+            if (arrayOfLetters.length > verse_words[i].length) break;
+            if (arrayOfLetters[j].classList.contains("correct-letter")) {
+                correct_letters++;
+            }
+        }
+        if (correct_letters === verse_words[i].length &&
+            arrayOfLetters.length === verse_words[i].length) {
+            total = total + verse_words[i].length;
+        }
+        correct_letters = 0;
+    }
+    let total_time = (end_time - start_time) * 1.0 / 1000;
+    alert("correct letters: " + correct_letters);
+    alert(total);
+    let wpm = (((total / 5)/total_time) * 60);
+    alert("total time: " + total_time + "wpm: " + wpm);
+
 }
