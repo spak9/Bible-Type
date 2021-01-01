@@ -2,7 +2,8 @@
     Global variables
 */
 let type_area = document.querySelector(".type-area");
-let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
+let verse = "For God";
+// let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
 let verse_words = []; // array of string; the 'verse' tokenized
 let words = []; // array of HTML Span objects
 let cursor = document.getElementById("cursor"); // the text cursor
@@ -21,10 +22,6 @@ $(document).ready(function() {
     // index for letters within a word
     j = 0;
 
-    // length of the i-th word
-    // Ex: 'For' = 3
-    let len = words[i].childElementCount;
-
     // the word in terms of its children aka. the letters;
     // Ex: <span .word> = [3 <span .letter]
     let arrayOfLetters = words[i].children;
@@ -38,7 +35,7 @@ $(document).ready(function() {
     $(document).keydown(function(e) {
         // start the timer from the 1st press
         if (start_time === undefined) start_time = new Date().getTime();
-        // last letter of last word will cause
+
         // Ignore special/modifier keys
         if (e.key === "Shift" ||
             e.key === "Alt" ||
@@ -120,6 +117,15 @@ $(document).ready(function() {
             j++;
             // ONLY FOR LAST LETTER, not appending
             if (j >= verse_words[i].length) {
+                // last letter of last word will cause end-game for user
+                if (i === verse_words.length-1 && j === verse_words[i].length) {
+                    alert(i);
+                    if (isCorrect(i) > 0) {
+                        end_time = new Date().getTime();
+                        getWPM();
+                        return;
+                    }
+                }
                 // Uncommon case: user reaches the end of the word
                 arrayOfLetters[j-1].classList.add("curr-letter-right");
                 return;
@@ -191,7 +197,7 @@ function tokenizeWords(i) {
     - wpm = [(characters in correct words) / 5 * 60 secs] / total seconds
 */
 function getWPM() {
-    let i, j;
+    let i;
     // loop through all the word spans, and if they're "correct"
     // words, that is, all letter spans are correct, then
     // add it to correct characters
