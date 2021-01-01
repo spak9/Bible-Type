@@ -2,17 +2,13 @@
     Global variables
 */
 let type_area = document.querySelector(".type-area");
-let verse = "For God so";
-//let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
+let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
 let verse_words = []; // array of string; the 'verse' tokenized
 let words = []; // array of HTML Span objects
 let cursor = document.getElementById("cursor"); // the text cursor
 let i, j; // indices
 let start_time, end_time; // Date objects for getting the wpm
 
-/*
-
-*/
 tokenizeVerse();
 for (i = 0; i < words.length; i++) {
     tokenizeWords(i);
@@ -42,6 +38,7 @@ $(document).ready(function() {
     $(document).keydown(function(e) {
         // start the timer from the 1st press
         if (start_time === undefined) start_time = new Date().getTime();
+        // last letter of last word will cause
         // Ignore special/modifier keys
         if (e.key === "Shift" ||
             e.key === "Alt" ||
@@ -171,6 +168,7 @@ function tokenizeVerse() {
     Tokenize a given list of words based on "", that is
     by the character, resulting in a mapping of
     <span> <--> characters
+    - i is the index for the word
 */
 function tokenizeWords(i) {
     let word_text = verse_words[i]; // string
@@ -201,24 +199,30 @@ function getWPM() {
     let total = 0;
     let arrayOfLetters;
     for (i = 0; i < words.length; i++) {
-        // let correct_letters = 0;
-        arrayOfLetters = words[i].children;
-        for (j = 0; j < arrayOfLetters.length; j++) {
-            if (arrayOfLetters.length > verse_words[i].length) break;
-            if (arrayOfLetters[j].classList.contains("correct-letter")) {
-                correct_letters++;
-            }
-        }
-        if (correct_letters === verse_words[i].length &&
-            arrayOfLetters.length === verse_words[i].length) {
-            total = total + verse_words[i].length;
-        }
-        correct_letters = 0;
+        total = total + isCorrect(i);
     }
     let total_time = (end_time - start_time) * 1.0 / 1000;
-    alert("correct letters: " + correct_letters);
-    alert(total);
     let wpm = (((total / 5)/total_time) * 60);
     alert("total time: " + total_time + "wpm: " + wpm);
+}
 
+/*
+    returns the correct letters within a word, that is, every
+    letter must be correct within a word for it to be considered correct
+    - i is the index for the 'words' array
+*/
+function isCorrect(i) {
+    // shadow of global variable
+    let arrayOfLetters = words[i].children;
+    let j;
+    let correct_letters = 0;
+    // iterate through a "word" and check whether the word is correct
+    for (j = 0; j < arrayOfLetters.length; j++) {
+        if (arrayOfLetters[j].classList.contains("correct-letter")) {
+            correct_letters++;
+        }
+    }
+    // make sure there are no appended letters
+    if (arrayOfLetters.length === verse_words[i].length) return correct_letters;
+    return 0;
 }
