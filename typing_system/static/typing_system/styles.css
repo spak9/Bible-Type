@@ -40,6 +40,13 @@ body {
 .navbar a:hover {
     border-color:transparent;
 }
+.search-verse {
+    font-size:1.5em;
+    margin: 0 auto;
+}
+.search-verse #verse-input, #submit-btn {
+    font-size:1rem;
+}
 .link {
     display:inline-block;
     margin-right:1.5rem;
@@ -96,7 +103,7 @@ span .letter {
 span .extra-letter{
     color: var(--appended-color);
 }
-.click {
+#click {
     margin-left: auto;
     margin-right:auto;
     margin-bottom:auto;
@@ -105,7 +112,7 @@ span .extra-letter{
     border-bottom:1px solid var(--text-color);
     transition: border-bottom ease-in-out .25s;
 }
-.click:hover {
+#click:hover {
     border-color:transparent;
 }
 /* text cursor & animations */

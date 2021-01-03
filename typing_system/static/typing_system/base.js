@@ -141,6 +141,7 @@ function displayResults() {
     can get a new wpm
 */
 function restartGame() {
+    let restart_btn = document.getElementById("click").blur();
     type_area.innerHTML = "";
     words = [];
     verse_words = [];
