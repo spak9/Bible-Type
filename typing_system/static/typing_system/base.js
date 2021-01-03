@@ -2,8 +2,8 @@
     Global variables
 */
 let type_area = document.querySelector(".type-area");
-let verse = "For God";
-// let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
+//let verse = "For God";
+let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
 let verse_words = []; // array of string; the 'verse' tokenized
 let words = []; // array of HTML Span objects
 let cursor = document.getElementById("cursor"); // the text cursor
@@ -105,7 +105,12 @@ function displayResults() {
     wpm = getWPM();
     // display to user by "restarting" type-area
     type_area.innerHTML = "";
-    type_area.innerHTML = "wpm: " +  wpm;
+    if (wpm > 100) {
+        type_area.innerHTML = "wpm: " + wpm + " - Nice! You write faster than Apostle Paul! - wpm: ";
+    }
+    else {
+        type_area.innerHTML = "wpm: " + wpm + " - Don't worry! Once you practice a little more, you'll be writing faster than Apostle Paul!";
+    }
 }
 
 /*
