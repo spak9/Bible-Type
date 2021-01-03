@@ -59,7 +59,10 @@ body {
     align-items:flex-start;
     width:80%;
     /* border:solid 2px #81BCC5;*/
-    margin: auto auto;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top:auto;
+    margin-bottom:1rem;
     color: var(--text-color);
     font-size:2rem;
 }
@@ -92,6 +95,18 @@ span .letter {
 }
 span .extra-letter{
     color: var(--appended-color);
+}
+.click {
+    margin-left: auto;
+    margin-right:auto;
+    margin-bottom:auto;
+    color:var(--text-color);
+    text-decoration:none;
+    border-bottom:1px solid var(--text-color);
+    transition: border-bottom ease-in-out .25s;
+}
+.click:hover {
+    border-color:transparent;
 }
 /* text cursor & animations */
 

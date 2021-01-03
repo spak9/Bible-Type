@@ -9,14 +9,118 @@ let words = []; // array of HTML Span objects
 let cursor = document.getElementById("cursor"); // the text cursor
 let i, j; // indices
 let start_time, end_time; // Date objects for getting the wpm
+let wpm; // wpm for user
+let arrayOfLetters;
 
-tokenizeVerse();
-for (i = 0; i < words.length; i++) {
-    tokenizeWords(i);
+
+/*
+    tokenize a given verse based on " ", that is
+    spaces, resulting into array of words
+*/
+function tokenizeVerse() {
+    verse.split(" ").forEach(function(elem) {
+        // our span
+        let word = document.createElement("span");
+        // span's text = elem
+        // word.innerHTML = elem;
+        word.classList.add("word")
+        type_area.appendChild(word);
+
+        // append to their respective lists
+        words.push(word);
+        verse_words.push(elem);
+        });
 }
 
+/*
+    Tokenize a given list of words based on "", that is
+    by the character, resulting in a mapping of
+    <span> <--> characters
+    - i is the index for the word
+*/
+function tokenizeWords(i) {
+    let word_text = verse_words[i]; // string
+    word_text.split("").forEach(function(elem) {
+        // span for letter
+        let letter = document.createElement("span");
+        letter.classList.add("letter")
+        letter.innerHTML = elem;
+        words[i].appendChild(letter);
+    });
+}
 
-$(document).ready(function() {
+/*
+    Get the difference between end & start times
+    for calculating wpm
+
+    - From `MonkeyType`,
+    "wpm - total amount of characters in the correctly typed words
+    (including spaces), divided by 5 and normalised to 60 seconds."
+    - wpm = [(characters in correct words) / 5 * 60 secs] / total seconds
+*/
+function getWPM() {
+    let i;
+    // loop through all the word spans, and if they're "correct"
+    // words, that is, all letter spans are correct, then
+    // add it to correct characters
+    let correct_letters = 0;
+    let total = 0;
+    let arrayOfLetters;
+    for (i = 0; i < words.length; i++) {
+        total = total + isCorrect(i);
+    }
+    let total_time = (end_time - start_time) * 1.0 / 1000;
+    // precision to 1 decimal point
+    return (((total / 5)/total_time) * 60).toFixed(1);
+    // alert("total time: " + total_time + "wpm: " + wpm);
+}
+
+/*
+    returns the correct letters within a word, that is, every
+    letter must be correct within a word for it to be considered correct
+    - i is the index for the 'words' array
+*/
+function isCorrect(i) {
+    // shadow of global variable
+    let arrayOfLetters = words[i].children;
+    let j;
+    let correct_letters = 0;
+    // iterate through a "word" and check whether the word is correct
+    for (j = 0; j < arrayOfLetters.length; j++) {
+        if (arrayOfLetters[j].classList.contains("correct-letter")) {
+            correct_letters++;
+        }
+    }
+    // make sure there are no appended letters
+    if (correct_letters === verse_words[i].length) return correct_letters;
+    return 0;
+}
+
+/*
+    Calls getWPM() and displays the results to the user,
+    whilst hiding the `typing-area`
+*/
+function displayResults() {
+    end_time = new Date().getTime();
+    wpm = getWPM();
+    // display to user by "restarting" type-area
+    type_area.innerHTML = "";
+    type_area.innerHTML = "wpm: " +  wpm;
+}
+
+/*
+    Restart the game by restarting the type area
+    and make start_time undefined so that we
+    can get a new wpm
+*/
+function restartGame() {
+    type_area.innerHTML = "";
+    words = [];
+    verse_words = [];
+    tokenizeVerse();
+    for (i = 0; i < words.length; i++) {
+        tokenizeWords(i);
+    }
     // index for the array of words
     i = 0;
     // index for letters within a word
@@ -24,14 +128,20 @@ $(document).ready(function() {
 
     // the word in terms of its children aka. the letters;
     // Ex: <span .word> = [3 <span .letter]
-    let arrayOfLetters = words[i].children;
+    arrayOfLetters = words[i].children;
 
     // make the 1st letter of 1st word the current letter
     arrayOfLetters[j].classList.add("curr-letter");
+    // make it undefined and start on keydowns
+    start_time = undefined;
+    wpm = undefined;
+}
 
+$(document).ready(function() {
     /*
         The main functionality, the handler to a keydown.
     */
+    restartGame();
     $(document).keydown(function(e) {
         // start the timer from the 1st press
         if (start_time === undefined) start_time = new Date().getTime();
@@ -47,11 +157,11 @@ $(document).ready(function() {
         // case 1. space; iterate to next word
         if (e.key === " ") {
             // end the game if user is on the last word
-            if (i === words.length - 1) {
-                end_time = new Date().getTime();
-                getWPM();
+            if (i === words.length - 1 && wpm === undefined) {
+                displayResults();
                 return;
             }
+            else if (wpm !== undefined) return;
             // special cases: when curr-letter-right is on.
             // j will always be 1 ahead of last usable letter
             if (j >= verse_words[i].length) {
@@ -119,10 +229,9 @@ $(document).ready(function() {
             if (j >= verse_words[i].length) {
                 // last letter of last word will cause end-game for user
                 if (i === verse_words.length-1 && j === verse_words[i].length) {
-                    alert(i);
                     if (isCorrect(i) > 0) {
-                        end_time = new Date().getTime();
-                        getWPM();
+
+                        displayResults();
                         return;
                     }
                 }
@@ -145,90 +254,7 @@ $(document).ready(function() {
                 return;
             }
             arrayOfLetters[j].classList.add("curr-letter");
+            return;
         }
-
-
     });
 });
-
-/*
-    tokenize a given verse based on " ", that is
-    spaces, resulting into array of words
-*/
-function tokenizeVerse() {
-    verse.split(" ").forEach(function(elem) {
-        // our span
-        let word = document.createElement("span");
-        // span's text = elem
-        // word.innerHTML = elem;
-        word.classList.add("word")
-        type_area.appendChild(word);
-
-        // append to their respective lists
-        words.push(word);
-        verse_words.push(elem);
-        });
-}
-
-/*
-    Tokenize a given list of words based on "", that is
-    by the character, resulting in a mapping of
-    <span> <--> characters
-    - i is the index for the word
-*/
-function tokenizeWords(i) {
-    let word_text = verse_words[i]; // string
-    word_text.split("").forEach(function(elem) {
-        // span for letter
-        let letter = document.createElement("span");
-        letter.classList.add("letter")
-        letter.innerHTML = elem;
-        words[i].appendChild(letter);
-    });
-}
-
-/*
-    Get the difference between end & start times
-    for calculating wpm
-
-    - From `MonkeyType`,
-    "wpm - total amount of characters in the correctly typed words
-    (including spaces), divided by 5 and normalised to 60 seconds."
-    - wpm = [(characters in correct words) / 5 * 60 secs] / total seconds
-*/
-function getWPM() {
-    let i;
-    // loop through all the word spans, and if they're "correct"
-    // words, that is, all letter spans are correct, then
-    // add it to correct characters
-    let correct_letters = 0;
-    let total = 0;
-    let arrayOfLetters;
-    for (i = 0; i < words.length; i++) {
-        total = total + isCorrect(i);
-    }
-    let total_time = (end_time - start_time) * 1.0 / 1000;
-    let wpm = (((total / 5)/total_time) * 60);
-    alert("total time: " + total_time + "wpm: " + wpm);
-}
-
-/*
-    returns the correct letters within a word, that is, every
-    letter must be correct within a word for it to be considered correct
-    - i is the index for the 'words' array
-*/
-function isCorrect(i) {
-    // shadow of global variable
-    let arrayOfLetters = words[i].children;
-    let j;
-    let correct_letters = 0;
-    // iterate through a "word" and check whether the word is correct
-    for (j = 0; j < arrayOfLetters.length; j++) {
-        if (arrayOfLetters[j].classList.contains("correct-letter")) {
-            correct_letters++;
-        }
-    }
-    // make sure there are no appended letters
-    if (arrayOfLetters.length === verse_words[i].length) return correct_letters;
-    return 0;
-}
