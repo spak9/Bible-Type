@@ -2,8 +2,8 @@
     Global variables
 */
 let type_area = document.querySelector(".type-area");
-//let verse = "For God";
-let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
+let verse = "For God";
+//let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
 let verse_words = []; // array of string; the 'verse' tokenized
 let words = []; // array of HTML Span objects
 let cursor = document.getElementById("cursor"); // the text cursor
@@ -11,6 +11,28 @@ let i, j; // indices
 let start_time, end_time; // Date objects for getting the wpm
 let wpm; // wpm for user
 let arrayOfLetters;
+
+type_area.innerHTML = "";
+words = [];
+verse_words = [];
+tokenizeVerse();
+for (i = 0; i < words.length; i++) {
+    tokenizeWords(i);
+}
+// index for the array of words
+i = 0;
+// index for letters within a word
+j = 0;
+
+// the word in terms of its children aka. the letters;
+// Ex: <span .word> = [3 <span .letter]
+arrayOfLetters = words[i].children;
+
+// make the 1st letter of 1st word the current letter
+arrayOfLetters[j].classList.add("curr-letter");
+// make it undefined and start on keydowns
+start_time = undefined;
+wpm = undefined;
 
 
 /*
@@ -146,7 +168,7 @@ $(document).ready(function() {
     /*
         The main functionality, the handler to a keydown.
     */
-    restartGame();
+    // restartGame();
     $(document).keydown(function(e) {
         // start the timer from the 1st press
         if (start_time === undefined) start_time = new Date().getTime();
@@ -196,9 +218,27 @@ $(document).ready(function() {
                 arrayOfLetters[j-1].classList.add("curr-letter-right");
                 return;
             }
-            // for j == 0, don't disappear!
+            // for j == 0, need to go back to the prior word
+            // if appropriate of course..
             else if (j === 0) {
-                return;
+                // if backspace on first word, don't disappear!
+                if (i === 0) return;
+                else {
+                    // don't go back on correct word
+                    if (isCorrect(i-1) > 0) {
+                        return;
+                    }
+                    // go back to the previous word, putting the
+                    // cursor at "curr-letter-right"
+                    else {
+                        arrayOfLetters[j].classList = "";
+                        i--;
+                        j = verse_words[i].length;
+                        arrayOfLetters = words[i].children;
+                        arrayOfLetters[j-1].classList.add("curr-letter-right");
+                        return;
+                    }
+                }
             }
             arrayOfLetters[j].classList = "";
             j--;
