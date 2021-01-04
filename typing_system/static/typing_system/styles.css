@@ -41,11 +41,15 @@ body {
     border-color:transparent;
 }
 .search-verse {
-    font-size:1.5em;
-    margin: 0 auto;
+    margin: 0 0 0 auto;
 }
-.search-verse #verse-input, #submit-btn {
-    font-size:1rem;
+.search-verse #verse-input {
+    font-family: 'Roboto Mono', monospace;
+    color: #333;
+    padding:.5rem .5rem;
+}
+.verse-btn {
+    margin-left:1.5rem;
 }
 .link {
     display:inline-block;
@@ -57,7 +61,6 @@ body {
     display:inline-block;
     color: var(--text-color);
     font-size:1.5rem;
-    margin-right:auto;
 }
 /* type area */
 .type-area {
@@ -91,9 +94,13 @@ span .curr-letter-right {
     animation-iteration-count:infinite;
 }
 span .incorrect-letter {
+    display:inline-block;
+    text-align:right;
     color: var(--incorrect-color);
 }
 span .correct-letter {
+    display:inline-block;
+    text-align:right;
     color: var(--correct-color);
 }
 span .letter {
@@ -101,6 +108,8 @@ span .letter {
     text-align:right;
 }
 span .extra-letter{
+    display:inline-block;
+    text-align:right;
     color: var(--appended-color);
 }
 #click {

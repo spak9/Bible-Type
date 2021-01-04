@@ -136,6 +136,39 @@ function displayResults() {
 }
 
 /*
+    AJAX callback function for sending http request to bible-api
+*/
+function getVerse() {
+    // first, get the string from the input box
+    let verse_str = document.getElementById("verse-input");
+    let url = "https://bible-api.com/" + verse_str.value;
+    alert(url);
+
+    // second, create request & open() + send()
+    let httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+        alert("Can't send request for some reason...");
+        return false;
+    }
+    // Handler for getVerse response
+    httpRequest.onreadystatechange = function() {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                let response = JSON.parse(httpRequest.responseText);
+                alert(response["text"]);
+            }
+            else {
+                alert("Something's wrong with the response");
+            }
+        }
+    }
+
+    // send request with 'url'
+    httpRequest.open('GET', url, true);
+    httpRequest.send();
+}
+
+/*
     Restart the game by restarting the type area
     and make start_time undefined so that we
     can get a new wpm
