@@ -155,7 +155,11 @@ function getVerse() {
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
             if (httpRequest.status === 200) {
                 let response = JSON.parse(httpRequest.responseText);
-                alert(response["text"]);
+                // update our verse and restart the game
+                verse = response["text"];
+                // replace all occurances of white spaces
+                verse = verse.replace("\n", "");
+                restartGame();
             }
             else {
                 alert("Something's wrong with the response");
@@ -308,6 +312,7 @@ $(document).ready(function() {
             if (j >= verse_words[i].length) {
                 // last letter of last word will cause end-game for user
                 if (i === verse_words.length-1 && j === verse_words[i].length) {
+                    alert("End game");
                     if (isCorrect(i) > 0) {
 
                         displayResults();
