@@ -40,6 +40,17 @@ body {
 .navbar a:hover {
     border-color:transparent;
 }
+.search-verse {
+    margin: 0 0 0 auto;
+}
+.search-verse #verse-input {
+    font-family: 'Roboto Mono', monospace;
+    color: #333;
+    padding:.5rem .5rem;
+}
+.verse-btn {
+    margin-left:1.5rem;
+}
 .link {
     display:inline-block;
     margin-right:1.5rem;
@@ -50,7 +61,6 @@ body {
     display:inline-block;
     color: var(--text-color);
     font-size:1.5rem;
-    margin-right:auto;
 }
 /* type area */
 .type-area {
@@ -59,9 +69,16 @@ body {
     align-items:flex-start;
     width:80%;
     /* border:solid 2px #81BCC5;*/
-    margin: auto auto;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top:auto;
+    margin-bottom:1rem;
     color: var(--text-color);
     font-size:2rem;
+}
+.type-area-fadeOut {
+    animation-name:fadeOut;
+    animation-duration:2s;
 }
 .word {
     margin: 5px .5rem;
@@ -81,9 +98,13 @@ span .curr-letter-right {
     animation-iteration-count:infinite;
 }
 span .incorrect-letter {
+    display:inline-block;
+    text-align:right;
     color: var(--incorrect-color);
 }
 span .correct-letter {
+    display:inline-block;
+    text-align:right;
     color: var(--correct-color);
 }
 span .letter {
@@ -91,7 +112,21 @@ span .letter {
     text-align:right;
 }
 span .extra-letter{
+    display:inline-block;
+    text-align:right;
     color: var(--appended-color);
+}
+#click {
+    margin-left: auto;
+    margin-right:auto;
+    margin-bottom:auto;
+    color:var(--text-color);
+    text-decoration:none;
+    border-bottom:1px solid var(--text-color);
+    transition: border-bottom ease-in-out .25s;
+}
+#click:hover {
+    border-color:transparent;
 }
 /* text cursor & animations */
 
@@ -111,4 +146,9 @@ span .extra-letter{
     to {
         box-shadow: inset -2px 0 0 0 transparent;
     }
+}
+
+@keyframes fadeOut {
+    from {color:transparent;}
+    to {color:var(--text-color);}
 }
