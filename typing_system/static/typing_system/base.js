@@ -183,6 +183,7 @@ function restartGame() {
     let restart_btn = document.getElementById("click").blur();
     type_area.innerHTML = "";
     type_area.classList.remove("type-area-fadeOut");
+    input.blur();
     words = [];
     verse_words = [];
     tokenizeVerse();
