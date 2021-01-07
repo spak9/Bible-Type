@@ -115,7 +115,7 @@ function isCorrect(i) {
         }
     }
     // make sure there are no appended letters
-    if (correct_letters === verse_words[i].length) return correct_letters;
+    if (correct_letters === arrayOfLetters.length) return correct_letters;
     return 0;
 }
 
@@ -282,8 +282,9 @@ $(document).ready(function() {
                     else {
                         arrayOfLetters[j].classList = "";
                         i--;
-                        j = verse_words[i].length;
+                        // j = verse_words[i].length;
                         arrayOfLetters = words[i].children;
+                        j = arrayOfLetters.length;
                         arrayOfLetters[j-1].classList.add("curr-letter-right");
                         return;
                     }
