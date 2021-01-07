@@ -17,6 +17,10 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
 }
+h1, h2 {
+    margin-top:2rem;
+    margin-bottom:1rem;
+}
 /* Main Content */
 .flex-container {
     display: flex;
@@ -32,12 +36,13 @@ body {
     height:3rem;
     margin: 2rem 0;
 }
-.navbar a {
+a {
+    color:var(--text-color);
     text-decoration:none;
     border-bottom:1px solid var(--text-color);
     transition: border-bottom ease-in-out .25s;
 }
-.navbar a:hover {
+a:hover {
     border-color:transparent;
 }
 .search-verse {
@@ -61,6 +66,10 @@ body {
     display:inline-block;
     color: var(--text-color);
     font-size:1.5rem;
+}
+/* about page */
+.about-links {
+    color:var(--text-color);
 }
 /* type area */
 .type-area {
