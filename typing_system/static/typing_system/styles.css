@@ -76,6 +76,10 @@ body {
     color: var(--text-color);
     font-size:2rem;
 }
+.type-area-fadeOut {
+    animation-name:fadeOut;
+    animation-duration:2s;
+}
 .word {
     margin: 5px .5rem;
 }
@@ -142,4 +146,9 @@ span .extra-letter{
     to {
         box-shadow: inset -2px 0 0 0 transparent;
     }
+}
+
+@keyframes fadeOut {
+    from {color:transparent;}
+    to {color:var(--text-color);}
 }

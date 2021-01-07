@@ -2,8 +2,9 @@
     Global variables
 */
 let type_area = document.querySelector(".type-area");
-let verse = "For God";
-//let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
+let input = document.querySelector("#verse-input");
+//let verse = "For God";
+let verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.";
 let verse_words = []; // array of string; the 'verse' tokenized
 let words = []; // array of HTML Span objects
 let cursor = document.getElementById("cursor"); // the text cursor
@@ -126,6 +127,7 @@ function displayResults() {
     end_time = new Date().getTime();
     wpm = getWPM();
     // display to user by "restarting" type-area
+    type_area.classList.add("type-area-fadeOut");
     type_area.innerHTML = "";
     if (wpm > 100) {
         type_area.innerHTML = "wpm: " + wpm + " - Nice! You write faster than Apostle Paul! - wpm: ";
@@ -142,7 +144,6 @@ function getVerse() {
     // first, get the string from the input box
     let verse_str = document.getElementById("verse-input");
     let url = "https://bible-api.com/" + verse_str.value;
-    alert(url);
 
     // second, create request & open() + send()
     let httpRequest = new XMLHttpRequest();
@@ -159,11 +160,12 @@ function getVerse() {
                 verse = response["text"];
                 // replace all occurances of white spaces
                 verse = verse.replace("\n", "");
-                restartGame();
             }
+            // status code is messed up
             else {
-                alert("Something's wrong with the response");
+                verse = "Something's wrong with the query :( Check the bible verse formatting!"
             }
+            restartGame();
         }
     }
 
@@ -180,6 +182,7 @@ function getVerse() {
 function restartGame() {
     let restart_btn = document.getElementById("click").blur();
     type_area.innerHTML = "";
+    type_area.classList.remove("type-area-fadeOut");
     words = [];
     verse_words = [];
     tokenizeVerse();
@@ -203,11 +206,19 @@ function restartGame() {
 }
 
 $(document).ready(function() {
+    $("#verse-input").keydown(function(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            getVerse();
+        }
+    })
     /*
-        The main functionality, the handler to a keydown.
+        The main functionality, the handler to a keydown for general typing.
     */
-    // restartGame();
     $(document).keydown(function(e) {
+        // Firstly, ignore input in search bar
+        if (document.activeElement === input) return;
+
         // start the timer from the 1st press
         if (start_time === undefined) start_time = new Date().getTime();
 
@@ -312,7 +323,6 @@ $(document).ready(function() {
             if (j >= verse_words[i].length) {
                 // last letter of last word will cause end-game for user
                 if (i === verse_words.length-1 && j === verse_words[i].length) {
-                    alert("End game");
                     if (isCorrect(i) > 0) {
 
                         displayResults();
