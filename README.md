@@ -3,7 +3,7 @@ A speed typing web application based on Bible verses.
 
 ## Milestones
 - 1/7/21: Released 1st "version" publicly
-- XX/XX/21: Releases legitimate GitHub Releases
+- 1/8/21: Released v1.0.0 of BibleType
 - XX/XX/21: Introduce User accounts
 
 ## Authors and Acknowledgment
