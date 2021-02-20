@@ -9,3 +9,6 @@ A speed typing web application based on Bible verses.
 ## Authors and Acknowledgment
 I want to thank [Tim Morgan](https://github.com/seven1m) for his
 work on the bible-api, as well as [MonkeyType](https://github.com/Miodec/monkeytype) for inspiring me with their great app!
+
+## Application
+[Bible Type](https://bibletype.herokuapp.com/)
