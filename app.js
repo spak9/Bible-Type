@@ -20,7 +20,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('view engine', 'html');
 // view engine setup - using Nunjucks for Jinja syntax
 nunjucks.configure('views', {
     autoescape: true,
