@@ -3,10 +3,14 @@ A speed typing web application based on Bible verses.
 
 ## Build 
 To install:
-`npm install`
+```
+npm install
+```
 
-To run a nodemon development server
-`npm run devstart`
+To run a nodemon development server:
+```
+npm run devstart
+```
 
 
 ## Milestones
