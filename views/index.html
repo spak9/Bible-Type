@@ -3,12 +3,12 @@
 {% block title %}Bible Type{% endblock %}
 
 {% block main_content %}
-            <div class="type-area">
-                {# <div id="cursor"></div> #}
+            <div class="main-content">
+                <div class="type-area">
+                    <div id="cursor"></div> 
+                </div>
+                <a id="click" href="#" onclick="restartGame()">Restart</a>
             </div>
-            <a id="click" href="#" onclick="restartGame()">
-                Restart
-            </a>
 {% endblock %}
 
 {% block js %}
