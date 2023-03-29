@@ -19,7 +19,7 @@ body {
     color: var(--text-color);
     scrollbar-gutter: stable both-edges;        /* SO IMPORTANT TO HANDLE PAGES LONGER THAN 100% */
     width:60%;
-    height:100vh;
+    min-height:100vh;
     margin: 0 auto;
 
     /* Flex Container */
@@ -144,7 +144,7 @@ span .extra-letter{
 
 /* Footer */
 .footer {
-    margin: 1rem 0;
+    padding: 1rem 0;
     text-align: center;
 }
 
