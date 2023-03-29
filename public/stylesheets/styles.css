@@ -6,34 +6,36 @@
     --incorrect-color:#f38181;
     --appended-color:#ef4f4f;
 }
+
 /* General */
 * {
     margin: 0;
     padding: 0;
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 body {
     font-family: 'Roboto Mono', monospace;
     background-color: var(--background-color);
     color: var(--text-color);
+    scrollbar-gutter: stable both-edges;        /* SO IMPORTANT TO HANDLE PAGES LONGER THAN 100% */
+    width:60%;
+    height:100vh;
+    margin: 0 auto;
+
+    /* Flex Container */
+    display: flex;
+    flex-direction:column;
 }
 h1, h2 {
     margin-top:2rem;
     margin-bottom:1rem;
 }
-/* Main Content */
-.flex-container {
-    display: flex;
-    flex-direction:column;
-    width:60%;
-    height:100vh;
-    margin: 0 auto;
-}
+
 /* Navigation Bar */
 .navbar {
     display:flex;
     align-items:center;
-    height:3rem;
+    flex-wrap: wrap;
     margin: 2rem 0;
 }
 a {
@@ -67,21 +69,24 @@ a:hover {
     color: var(--text-color);
     font-size:1.5rem;
 }
+
 /* about page */
 .about-links {
     color:var(--text-color);
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:80%;
+    margin: auto;
 }
 /* type area */
 .type-area {
     display:flex;
     flex-wrap:wrap;
     align-items:flex-start;
-    width:80%;
-    /* border:solid 2px #81BCC5;*/
-    margin-left: auto;
-    margin-right:auto;
-    margin-top:auto;
-    margin-bottom:1rem;
     color: var(--text-color);
     font-size:2rem;
 }
@@ -90,6 +95,7 @@ a:hover {
     animation-duration:2s;
 }
 .word {
+    flex: 0 0 auto;
     margin: 5px .5rem;
 }
 span .curr-letter {
@@ -126,9 +132,7 @@ span .extra-letter{
     color: var(--appended-color);
 }
 #click {
-    margin-left: auto;
-    margin-right:auto;
-    margin-bottom:auto;
+    margin-top: 2rem;
     color:var(--text-color);
     text-decoration:none;
     border-bottom:1px solid var(--text-color);
@@ -137,8 +141,14 @@ span .extra-letter{
 #click:hover {
     border-color:transparent;
 }
-/* text cursor & animations */
 
+/* Footer */
+.footer {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+/* text cursor & animations */
 @keyframes text-cursor {
     from {
         box-shadow: inset 2px 0 0 0 #a57c80;

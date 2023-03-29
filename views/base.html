@@ -8,24 +8,31 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
         <title>{% block title %}Base{% endblock %}</title>
     </head>
+
+    <!-- The main flex box container -->
     <body>
-        <!-- The main flex box container -->
-        <div class="flex-container">
-            <!-- Flex item 1; also a container-->
-            <nav class="navbar">
-                <a class="link" href="/">Bible Type</a>
-                <a class="link" href="/about">About</a>
-                <a class="link" href="#">Sign-in</a>
-                <form class="search-verse" method="post">
-                    <input id="verse-input" type="text" name="verse-input" placeholder="John 3:16">
-                </form>
-                <a class="verse-btn link" onclick="getVerse()" href="#">Find Verse</a>
-            </nav>
-        <!-- Everything is a flex item of main_content -->
+
+        <!-- Flex item 1 - a Flex container-->
+        <nav class="navbar">
+            <a class="link" href="/">Bible Type</a>
+            <a class="link" href="/about">About</a>
+            <a class="link" href="#">Sign-in</a>
+            <form class="search-verse" method="post">
+                <input id="verse-input" type="text" name="verse-input" placeholder="John 3:16">
+            </form>
+            <a class="verse-btn link" onclick="getVerse()" href="#">Find Verse</a>
+        </nav>
+
+        <!-- Flex item 2 - Flex container-->
         {% block main_content %}
 
         {% endblock %}
+
+        <!-- Flex item 3 -->
+        <div class="footer">
+            <span>© Steven Pak 2023</span>
         </div>
+
 
     <!-- jQuery CDN -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
