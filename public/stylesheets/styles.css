@@ -71,6 +71,9 @@ a:hover {
 }
 
 /* about page */
+.about {
+    margin: auto;
+}
 .about-links {
     color:var(--text-color);
 }
