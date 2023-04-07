@@ -1,9 +1,9 @@
-var express = require('express');
+import express from 'express';
+import authRouter from './auth.mjs';
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log('asdf')
   res.render('index.html');
 });
 
@@ -12,4 +12,7 @@ router.get('/about', (req, res) => {
   res.render('about.html')
 })
 
-module.exports = router;
+/* Mount "/auth" router */
+router.use('/auth', authRouter);
+
+export default router;

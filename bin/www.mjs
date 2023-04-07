@@ -4,9 +4,10 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('bible-type:server');
-var http = require('http');
+import http from 'http';
+import { app } from '../app.mjs';
+import pkg from 'debug';
+const { debug } = pkg;
 
 /**
  * Get port from environment and store in Express.
