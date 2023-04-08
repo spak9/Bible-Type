@@ -1,4 +1,4 @@
-// Imported Node modules
+// Node imports
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
@@ -7,7 +7,7 @@ import logger from 'morgan';
 import nunjucks from 'nunjucks';
 import { fileURLToPath } from 'url';
 
-// Imported Express Routers
+// Express router imports
 import indexRouter from './routes/index.mjs';
 
 // Firebase imports
@@ -19,6 +19,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const firebaseApp = setupFirebase();
+const auth = getAuth(firebaseApp);
 
 // Express Application
 const app = express();
