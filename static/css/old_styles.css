@@ -18,8 +18,8 @@ html {
 }
 body {
     font-family: 'Roboto Mono', monospace;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    /*background-color: var(--background-color);*/
+    /* color: var(--text-color);*/
     width:60%;
     min-height:100vh;
     margin: 0 auto;

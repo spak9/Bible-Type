@@ -3,12 +3,10 @@
 	<head>
 		<meta charset="utf-8" />
 
-		<!-- SMUI Styles -->
-		<link rel="stylesheet" href="/smui.css" media="(prefers-color-scheme: light)" />
-		<link
-		  rel="stylesheet"
-		  href="/smui-dark.css"
-		  media="screen and (prefers-color-scheme: dark)"
+		<!-- Stylesheets - SMUI and custom BibleType -->
+		<link rel="stylesheet" href="/css/smui.css"/>
+		<link rel="stylesheet" href="/css/styles.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono"
 		/>
 
 		<!-- Material Icons -->
@@ -16,24 +14,16 @@
 		  rel="stylesheet"
 		  href="https://fonts.googleapis.com/icon?family=Material+Icons"
 		/>
-		
-		<!-- Roboto -->
-		<!-- <link
-		  rel="stylesheet"
-		  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700"
-		/> -->
 
-		<!-- Roboto Mono -->
-		<link
-		  rel="stylesheet"
-		  href="https://fonts.googleapis.com/css?family=Roboto+Mono"
-		/>
-
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width" />
-		%sveltekit.head%
+		<meta name="viewport" content="width=device-width" />%sveltekit.head%
 	</head>
+
+	<!-- MAIN CONTENT -->
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
+		<div class="main">%sveltekit.body%</div>
 	</body>
+
+	<!-- jQuery CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 </html>

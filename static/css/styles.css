@@ -1,0 +1,54 @@
+/* General */
+html {
+    height: 100%;
+    scrollbar-gutter: stable both-edges;        /* SO IMPORTANT TO HANDLE PAGES LONGER THAN 100% */
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Roboto Mono', monospace;
+    width:60%;
+    height:100%;
+    margin: 0 auto;
+}
+h1, h2 {
+    margin-top:2rem;
+    margin-bottom:1rem;
+}
+
+
+/* Main div - main flexbox container */
+.main {
+    height: 100%;
+
+    /* Flex Container */
+    display: flex;
+    flex-direction:column;
+}
+
+/* Navigation Bar */
+.navbar {
+    display:flex;
+    align-items:center;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+}
+.link {
+    display:inline-block;
+    margin-right:1.5rem;
+    font-size:1.5rem;
+    color: #ffe08e;
+}
+.push-right {
+    margin-left: auto;
+}
+
+/* Footer */
+.footer {
+    margin-top: auto;
+    padding: 1rem 0;
+    text-align: center;
+}

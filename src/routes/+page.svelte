@@ -1,11 +1,10 @@
 <script>
-	import Button, { Icon } from '@smui/button';
+	import Button, { Label } from '@smui/button';
 	let clicks = 0;
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>Bible Type</h1>
 
-<Button on:click={() => clicks++}>
-	<Icon class="material-icons">favorite</Icon>Click Me {clicks}
+<Button color="secondary" class="blah" variant="raised" on:click={() => clicks++}>
+	<Label>Clicks {clicks}</Label>
 </Button>

@@ -6,9 +6,9 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"prepare": "npm run smui-theme-light && npm run smui-theme-dark",
-		"smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
-		"smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark"
+		"prepare": "npm run smui-theme-light",
+		"smui-theme-light": "smui-theme compile static/css/smui.css -i src/theme"
+		
 	},
 	"devDependencies": {
 		"@smui/button": "^7.0.0-beta.8",
