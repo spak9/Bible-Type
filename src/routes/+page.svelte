@@ -1,10 +1,28 @@
+<!-- Script -->
 <script>
-	import Button, { Label } from '@smui/button';
-	let clicks = 0;
+	import TypeArea from '$lib/components/TypeArea.svelte';
+	import Button, { Label } from "@smui/button";
 </script>
 
-<h1>Bible Type</h1>
 
-<Button color="secondary" class="blah" variant="raised" on:click={() => clicks++}>
-	<Label>Clicks {clicks}</Label>
-</Button>
+<!-- Markup -->
+<div class="home-page">
+	<TypeArea/>
+	<div>
+		<Button variant="raised">
+		  <Label>Change Verse</Label>
+		</Button>
+	</div>
+</div>
+
+
+<!-- Styles --> 
+<style>
+	.home-page {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+	}
+</style>

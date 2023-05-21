@@ -4,7 +4,7 @@
 </script>
 
 
-<!-- Flex item 1 - a Flex container-->
+<!-- Flex item 1 - Header (flex container) -->
 <nav class="navbar">
     <a class="link" href="/">Bible Type</a>
     <IconButton 
@@ -33,7 +33,7 @@
 <!-- Flex item 2 - +page.svelte content -->
 <slot/>
 
-<!-- Flex item 3 -->
+<!-- Flex item 3 - Footer -->
 <div class="footer">
     <span>© Steven Pak 2023</span>
 </div>
