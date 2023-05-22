@@ -49,10 +49,10 @@
     this about page, heading into 2021, I feel so blessed
     knowing that I'm here in this present moment with you. Thank
     you for being my encouragement in moments I didn't want
-    to complete this. Thank you for allowing me to hear your
-    word at CROSS20, even though I didn't want even go at first.
+    to complete this. Thank you for allowing me to hear Your
+    word at <a href="https://www.crosscon.com/">CROSS20</a>, even though I didn't want even go at first.
     To be honest, evangelism wasn't my goal with this project, but
-    I hope that you would use my ill intentions for your glory.
+    I hope that you would use my ill intentions for Your glory.
 </p>
 <h2>More</h2>
 <p>

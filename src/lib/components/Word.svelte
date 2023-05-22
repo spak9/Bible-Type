@@ -8,7 +8,9 @@
 
 <!-- Markup --> 
 <span>
-	{word}
+	{#each word as letter}
+		<Letter letter={letter} />
+	{/each}
 </span>
 
 

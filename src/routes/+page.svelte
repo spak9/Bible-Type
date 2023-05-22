@@ -1,6 +1,7 @@
 <!-- Script -->
 <script>
 	import TypeArea from '$lib/components/TypeArea.svelte';
+	import TypeAreaMenu from '$lib/components/TypeAreaMenu.svelte';
 	import Button, { Label } from "@smui/button";
 </script>
 
@@ -8,11 +9,7 @@
 <!-- Markup -->
 <div class="home-page">
 	<TypeArea/>
-	<div>
-		<Button variant="raised">
-		  <Label>Change Verse</Label>
-		</Button>
-	</div>
+	<TypeAreaMenu/>
 </div>
 
 
@@ -23,6 +20,10 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		align-self: center;
+
+		/* 90% of the parent (~60%) */
+		width: 90%;
 		height: 100%;
 	}
 </style>
