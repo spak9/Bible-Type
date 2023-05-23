@@ -7,6 +7,14 @@
 
 	let open = false;
 	let verse = "John 3:16";
+
+	async function getVerseText(verse) {
+		console.log(verse);
+		const res = await fetch(`https://bible-api.com/${verse}`);
+		const json = await res.json();
+		console.log(json.text);
+		return json.text;
+	}
 </script>
 
 
@@ -23,8 +31,8 @@
 	  <Title id="simple-title">Search Bible Verse</Title>
 	  <Content id="simple-content">
 	  	<div>
-	  		<Textfield bind:value={verse}>
-	  			<Icon class="material-icons" role="button" slot="trailingIcon">search</Icon>
+	  		<Textfield bind:value={verse} noLabel={true}>
+	  			<Icon on:click={() => getVerseText(verse)} class="material-icons" role="button" slot="trailingIcon">search</Icon>
 	  		</Textfield>
 	  	</div>
 	  </Content>
