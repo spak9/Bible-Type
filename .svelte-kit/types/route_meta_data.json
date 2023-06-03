@@ -1,6 +1,7 @@
 {
-	"/": [],
+	"/": [
+		"src/routes/+page.js"
+	],
 	"/about": [],
-	"/account": [],
-	"/test": []
+	"/account": []
 }

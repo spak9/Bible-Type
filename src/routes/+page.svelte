@@ -3,13 +3,25 @@
 	import TypeArea from '$lib/components/TypeArea.svelte';
 	import TypeAreaMenu from '$lib/components/TypeAreaMenu.svelte';
 	import Button, { Label } from "@smui/button";
+	import { UIStore } from '$lib/stores/ui_store.js';
+
+	export let data;
+
+	let verse = data.verse;
+
+	function onGetVerse(e) {
+		console.log(`ongetverse: ${e.detail}`);
+		verse = e.detail
+	}
 </script>
 
 
 <!-- Markup -->
 <div class="home-page">
-	<TypeArea/>
-	<TypeAreaMenu/>
+	{#key verse}
+		<TypeArea {verse}/>
+	{/key}
+	<TypeAreaMenu on:getverse={onGetVerse}/>
 </div>
 
 
