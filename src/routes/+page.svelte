@@ -7,7 +7,10 @@
 
 	export let data;
 
-	let verse = data.verse;
+	// String of the bible verse text from "bible-api"
+	let verse_text = data.verse;
+
+	// String of the error text from "bible-api" on invalid query
 	let error_message = undefined;
 
 	// An event handler for the "getverse" custom event.
@@ -22,7 +25,7 @@
 			console.log(`error: ${error_message}`)
 		}
 		else {
-			verse = data.verse_text;
+			verse_text = data.verse_text;
 			error_message = undefined;
 		}
 	}
@@ -34,8 +37,8 @@
 	{#if error_message}
 		<h2>{error_message}</h2>
 	{:else}
-		{#key verse}
-			<TypeArea {verse}/>
+		{#key verse_text}
+			<TypeArea verse={verse_text}/>
 		{/key}
 	{/if}
 	<TypeAreaMenu on:getverse={onGetVerse}/>
