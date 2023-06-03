@@ -12,16 +12,21 @@
 	// bool for modal opening
 	let open = false;
 	let verse = "John 3:16";
-	//on:click={() => getVerseText(verse)} 
 
 	async function getVerse(verse) {
 		console.log(verse);
 		// Fetch new verse result
 		const res = await fetch(`https://bible-api.com/${verse}`);
 		const json = await res.json();
+		let data = {verse_text: json.text}
+
+		// Ensure `data` is not undefined
+		if (data.verse_text === undefined) {
+			data.error_message = `"${verse}" was not found. Are you sure it's a valid search?`;
+		}
 		
 		// Emit "getverse" event
-		dispatch("getverse", json.text);
+		dispatch("getverse", data);
 	}
 </script>
 

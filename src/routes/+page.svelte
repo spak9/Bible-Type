@@ -8,19 +8,36 @@
 	export let data;
 
 	let verse = data.verse;
+	let error_message = undefined;
 
+	// An event handler for the "getverse" custom event.
+	// Updates `verse` component state with new verse
 	function onGetVerse(e) {
-		console.log(`ongetverse: ${e.detail}`);
-		verse = e.detail
+		let data = e.detail;
+		console.log(`ongetverse: ${data}`);
+		
+		// Check if verse is valid from the API
+		if (data.error_message) {
+			error_message = data.error_message;
+			console.log(`error: ${error_message}`)
+		}
+		else {
+			verse = data.verse_text;
+			error_message = undefined;
+		}
 	}
 </script>
 
 
 <!-- Markup -->
 <div class="home-page">
-	{#key verse}
-		<TypeArea {verse}/>
-	{/key}
+	{#if error_message}
+		<h2>{error_message}</h2>
+	{:else}
+		{#key verse}
+			<TypeArea {verse}/>
+		{/key}
+	{/if}
 	<TypeAreaMenu on:getverse={onGetVerse}/>
 </div>
 
