@@ -14,6 +14,7 @@
 	let verse = "John 3:16";
 
 	async function getVerse(verse) {
+		open = false;
 		console.log(verse);
 		// Fetch new verse result
 		const res = await fetch(`https://bible-api.com/${verse}`);
@@ -21,8 +22,8 @@
 		let data = {verse_text: json.text}
 
 		// Ensure `data` is not undefined
-		if (data.verse_text === undefined) {
-			data.error_message = `"${verse}" was not found. Are you sure it's a valid search?`;
+		if (data.verse_text === undefined || data.verse_text === "") {
+			data.error_message = `"${verse}" was not found. Are you sure it's a valid verse?`;
 		}
 		
 		// Emit "getverse" event

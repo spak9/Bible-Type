@@ -2,8 +2,6 @@
 <script>
 	import TypeArea from '$lib/components/TypeArea.svelte';
 	import TypeAreaMenu from '$lib/components/TypeAreaMenu.svelte';
-	import Button, { Label } from "@smui/button";
-	import { UIStore } from '$lib/stores/ui_store.js';
 
 	export let data;
 
