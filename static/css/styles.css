@@ -1,3 +1,10 @@
+/* CSS Variables */
+:root {
+    --correct-color:#a9eee6;
+    --incorrect-color:#f38181;
+    --appended-color:#ef4f4f;
+}
+
 /* General */
 html {
     height: 100%;
@@ -51,4 +58,46 @@ h1, h2 {
     margin-top: auto;
     padding: 1rem 0;
     text-align: center;
+}
+
+/* TypeArea and Cursor effects */
+span .incorrect-letter {
+    display:inline-block;
+    text-align:right;
+    color: var(--incorrect-color);
+}
+span .correct-letter {
+    display:inline-block;
+    text-align:right;
+    color: var(--correct-color);
+}
+.curr-letter {
+    box-shadow: inset 2px 0 0 0;
+    animation-name:text-cursor;
+    animation-duration:.6s;
+    animation-direction:alternate;
+    animation-iteration-count:infinite;
+}
+.curr-letter-right {
+    box-shadow: inset -2px 0 0 0;
+    animation-name:text-cursor-right;
+    animation-duration:.6s;
+    animation-direction:alternate;
+    animation-iteration-count:infinite;
+}
+@keyframes text-cursor {
+    from {
+        box-shadow: inset 2px 0 0 0 #a57c80;
+    }
+    to {
+        box-shadow: inset 2px 0 0 0 transparent;
+    }
+}
+@keyframes text-cursor-right {
+    from {
+        box-shadow: inset -2px 0 0 0 #a57c80;
+    }
+    to {
+        box-shadow: inset -2px 0 0 0 transparent;
+    }
 }
