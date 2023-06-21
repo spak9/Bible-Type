@@ -7,13 +7,16 @@
 	export let is_curr_letter = false;
 
 	export let is_correct = undefined;
+
+	export let is_last_letter = undefined
 </script>
 
 
 <!-- Markup -->
 <span 
-	class:correct-letter="{is_correct === true}"
-	class:incorrect-letter="{is_correct === false}"
+	class:last-letter={is_last_letter}
+	class:correct-letter={is_correct === true}
+	class:incorrect-letter={is_correct === false}
 	class:curr-letter={is_curr_letter} >
 	{letter}
 </span>

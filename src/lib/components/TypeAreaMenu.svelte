@@ -15,7 +15,6 @@
 
 	async function getVerse(verse) {
 		open = false;
-		console.log(verse);
 		// Fetch new verse result
 		const res = await fetch(`https://bible-api.com/${verse}`);
 		const json = await res.json();
@@ -27,6 +26,7 @@
 		}
 		
 		// Emit "getverse" event
+		console.log(`getverse: ${data.verse_text}`);
 		dispatch("getverse", data);
 	}
 </script>

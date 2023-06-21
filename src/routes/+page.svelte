@@ -15,7 +15,7 @@
 	// Updates `verse` component state with new verse
 	function onGetVerse(e) {
 		let data = e.detail;
-		console.log(`ongetverse: ${data}`);
+		console.log(`ongetverse: ${JSON.stringify(data)}`);
 		
 		// Check if verse is valid from the API
 		if (data.error_message) {
@@ -35,6 +35,7 @@
 	{#if error_message}
 		<h2>{error_message}</h2>
 	{:else}
+		<!-- Must be keyed as we need to reinstantiate TypeArea, not merely update it -->
 		{#key verse_text}
 			<TypeArea verse={verse_text}/>
 		{/key}

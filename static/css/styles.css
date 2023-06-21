@@ -71,14 +71,14 @@ span .correct-letter {
     text-align:right;
     color: var(--correct-color);
 }
-.curr-letter {
+span .curr-letter {
     box-shadow: inset 2px 0 0 0;
     animation-name:text-cursor;
     animation-duration:.6s;
     animation-direction:alternate;
     animation-iteration-count:infinite;
 }
-.curr-letter-right {
+span .last-letter {
     box-shadow: inset -2px 0 0 0;
     animation-name:text-cursor-right;
     animation-duration:.6s;

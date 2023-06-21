@@ -3,9 +3,17 @@
 	import { onMount } from 'svelte';
 	import Word from '$lib/components/Word.svelte';
 
+	/**
+	 * Props
+	 */
+
 	// verse text string user wants - replace new lines
 	export let verse = "";
 	verse = verse.replace(/(\r\n|\n|\r)/gm, "");
+
+	/**
+	 * Internal State
+	 */
 
 	// times for calculating WPM
 	let start_time = undefined;
@@ -21,8 +29,21 @@
 	function onkeydown(e) {
 		console.log(`user pressed: ${e.key}`);
 
+		// Ignore special/modifier keys
+        if (e.key === "Shift" ||
+            e.key === "Alt" ||
+            e.key === "Control" ||
+            e.key === "Meta" ||
+            e.key === "CapsLock" ||
+            e.key === "Tab") return;
+
 		// Call "onkeydown" on current "Word" component
 		words[curr_word_idx].onkeydown(e.key);
+	}
+
+	// handler for custom "gowordback" "Word" events
+	function ongowordback() {
+		curr_word_idx -= 1;
 	}
 	
 </script>
@@ -34,12 +55,14 @@
 <div>
 	{#each verse.split(" ") as word, idx}
 		{#if (idx === curr_word_idx)}
-			<Word 
+			<Word
+				on:gowordback={ongowordback}
 				bind:this={words[idx]} 
 				is_curr_word={true}
 				{word}  />
 		{:else}
 			<Word 
+				on:gowordback={ongowordback}
 				bind:this={words[idx]} 
 				{word}  />
 		{/if}
