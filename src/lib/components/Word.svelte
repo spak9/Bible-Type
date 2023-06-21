@@ -53,13 +53,29 @@
 
 			// 1a. Last Letter - dispatch gowordback event
 			if (isLastLetter()) {
-				dispatch("gowordback")
+				dispatch("gowordback");
 			}
 
 			// 1b. Not last letter - dispatch
 			else {
-				console.log("letternext");
-				letterNext(current_letter_obj);
+				console.log("letterForwards");
+				letterForwards(current_letter_obj);
+			}
+		}
+
+		// X. Backspace
+		else if (key === "Backspace") {
+			if (isFirstLetter()) {
+				
+			}
+			else if (isLastLetter() && current_letter_obj.is_last_letter) {
+				letterRestart(current_letter_obj);
+				console.log("onback - ", curr_letter_idx);
+			}
+			else {
+				let prior_letter_obj = letter_objects[curr_letter_idx - 1];
+				letterRestart(current_letter_obj)
+				letterBackwards(prior_letter_obj);
 			}
 		}
 
@@ -99,7 +115,16 @@
 		// Get length of the word
 		let word_length = letter_objects.length
 
-		if (word_length == curr_letter_idx) {
+		if (word_length === curr_letter_idx + 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	function isFirstLetter() {
+		if (curr_letter_idx === 0) {
 			return true;
 		}
 		else {
@@ -108,14 +133,21 @@
 	}
 
 	function letterRestart(letter_obj) {
-		letter_obj.is_curr_letter = false;
+		letter_obj.is_curr_letter = undefined;
 		letter_obj.is_correct = undefined;
+		letter_obj.is_last_letter = undefined;
 	}
 
-	function letterNext(letter_obj) {
-		curr_letter_idx += 1;
+	function letterForwards(letter_obj) {
 		letter_obj.is_curr_letter = false;
+		curr_letter_idx += 1;
+	}
 
+	function letterBackwards(letter_obj) {
+		letter_obj.is_curr_letter = undefined;
+		letter_obj.is_correct = undefined;
+		letter_obj.is_last_letter = undefined;
+		curr_letter_idx -= 1;
 	}
 
 	// "Word" event for when the "TypeArea" needs to go back a word
