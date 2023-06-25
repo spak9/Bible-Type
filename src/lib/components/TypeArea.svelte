@@ -44,7 +44,13 @@
 
 	// handler for custom "gowordback" "Word" events
 	function ongowordbackwards() {
-		curr_word_idx -= 1;
+		if (curr_word_idx === 0) {
+			// pass
+		}
+		else {
+			curr_word_idx -= 1;
+			words[curr_word_idx].updateLastLetter();
+		}
 	}
 
 	function ongowordforwards() {
@@ -61,6 +67,7 @@
 	{#each verse.split(" ") as word, idx}
 		<Word
 			on:gowordforward={ongowordforwards}
+			on:gowordbackwards={ongowordbackwards}
 			bind:this={words[idx]}
 			is_curr_word={idx === curr_word_idx ? true : false} 
 			{word}

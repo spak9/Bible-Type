@@ -41,8 +41,17 @@
 		}
 	}
 
+	// Reactively ensure that the current word and its letters are updated 
 	$: if (is_curr_word === true && !isLastLetter()) {
 		letter_objects[curr_letter_idx].is_curr_letter = true;
+	}
+
+	// Public function that checks whether the last position is on the
+	// last letter, if so, 
+	export function updateLastLetter() {
+		if (isLastLetter()) {
+			letter_objects[curr_letter_idx - 1].is_last_letter = true;
+		}
 	}
 
 	// Public method that allows a "Word" instance to manipulate its internal letters.
@@ -62,14 +71,13 @@
 
 		// 1. Space was pressed - jump to next word
 		if (key === " ") {
-			console.log("space was pressed");
-			dispatch("gowordforward");
+			wordForwards(current_letter_obj);
 		}
 
 		// X. Backspace
 		else if (key === "Backspace") {
 			if (isFirstLetter()) {
-				// pass - don't do anything
+				wordBackwards(current_letter_obj);
 			}
 			else if (isLastLetter()) {
 				// eg. "For" will have index 3; need to get 2
@@ -90,13 +98,17 @@
 			
 		}
 
+		// X. Incorrect letter must have been pressed
+		else {
+			// At the end of the word - reference will not exist
+			if (!isLastLetter()) {
+				letterIncorrect(current_letter_obj);
+			}
+		}
+
 		// X. Incorrect letter 
 
-		// FINALLY - set up new letter to be "current" letter and re-render
-		if (!isLastLetter()) {
-			current_letter_obj = letter_objects[curr_letter_idx];
-			current_letter_obj.is_curr_letter = true;
-		}
+		// Re-render new "Letter" state
 		letter_objects = letter_objects;
 		console.log(`After keydown: new index is ${curr_letter_idx}, letter is ${JSON.stringify(letter_objects[curr_letter_idx])}`);
 	}
@@ -128,16 +140,16 @@
 		}
 	}
 
-	function letterIncorrect() {
+	function letterIncorrect(letter_obj) {
 		letter_obj.is_correct = false;
 		letter_obj.is_curr_letter = false;
+		curr_letter_idx += 1;
 
 		// special case - if last letter, move cursor to the right and don't update index
 		if (isLastLetter()) {
 			letter_obj.is_last_letter = true;
 			return;
 		}
-		curr_letter_idx += 1;
 	}
 
 	function letterCorrect(letter_obj) {
@@ -158,9 +170,24 @@
 		letter_obj.is_last_letter = undefined;
 	}
 
-	function letterForwards(letter_obj) {
-		letter_obj.is_curr_letter = false;
-		curr_letter_idx += 1;
+	function wordForwards(letter_obj) {
+		if (isLastLetter()) {
+			// "letter_obj" will be undefined as it's an index too far
+			let prior_letter_obj = letter_objects[curr_letter_idx - 1];
+			prior_letter_obj.is_last_letter = false;
+		}
+		else {
+			letter_obj.is_curr_letter = false;
+		}
+		dispatch("gowordforward");
+	}
+
+	function wordBackwards(letter_obj) {
+		console.log("word backwards");
+		letterReset(letter_obj);
+		dispatch("gowordbackwards");
+
+
 	}
 
 	// Updates two letters - the current & prior letter to "restart"
@@ -170,12 +197,6 @@
 		let prior_letter_obj = letter_objects[curr_letter_idx];
 		letterReset(prior_letter_obj);
 	}
-
-	// "Word" event for when the "TypeArea" needs to go back a word
-	function gowordbackwards() { }
-
-	// "Word" event for when the "TypeArea" needs to go forward a word
-	function goWordForward() { }
 
 </script>
 
