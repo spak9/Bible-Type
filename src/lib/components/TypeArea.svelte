@@ -27,7 +27,6 @@
 
 	// handler for "keydown" events
 	function onkeydown(e) {
-		console.log(`user pressed: ${e.key}`);
 
 		// Ignore special/modifier keys
         if (e.key === "Shift" ||
@@ -39,11 +38,17 @@
 
 		// Call "onkeydown" on current "Word" component
 		words[curr_word_idx].onkeydown(e.key);
+
+		console.log(`user pressed: ${e.key} - curr word index ${curr_word_idx}`);
 	}
 
 	// handler for custom "gowordback" "Word" events
-	function ongowordback() {
+	function ongowordbackwards() {
 		curr_word_idx -= 1;
+	}
+
+	function ongowordforwards() {
+		curr_word_idx += 1;
 	}
 	
 </script>
@@ -54,18 +59,12 @@
 
 <div>
 	{#each verse.split(" ") as word, idx}
-		{#if (idx === curr_word_idx)}
-			<Word
-				on:gowordback={ongowordback}
-				bind:this={words[idx]} 
-				is_curr_word={true}
-				{word}  />
-		{:else}
-			<Word 
-				on:gowordback={ongowordback}
-				bind:this={words[idx]} 
-				{word}  />
-		{/if}
+		<Word
+			on:gowordforward={ongowordforwards}
+			bind:this={words[idx]}
+			is_curr_word={idx === curr_word_idx ? true : false} 
+			{word}
+			/>
 	{/each} 
 </div>
  
