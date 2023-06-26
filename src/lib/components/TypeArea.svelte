@@ -15,6 +15,9 @@
 	 * Internal State
 	 */
 
+	// Flag that's switched when user finishes/resets type area.
+	let show_results = false;
+
 	// times for calculating WPM
 	let start_time = undefined;
 	let end_time = undefined;
@@ -54,7 +57,15 @@
 	}
 
 	function ongowordforwards() {
+		// Reached the end of the verse(s) - end the game
+		if (curr_word_idx + 1 === words.length) {
+			endGame();
+		}
 		curr_word_idx += 1;
+	}
+
+	function endGame() {
+		show_results = true;
 	}
 	
 </script>
@@ -64,14 +75,18 @@
 <svelte:window on:keydown={onkeydown}/>
 
 <div>
-	{#each verse.split(" ") as word, idx}
-		<Word
-			on:gowordforward={ongowordforwards}
-			on:gowordbackwards={ongowordbackwards}
-			bind:this={words[idx]}
-			is_curr_word={idx === curr_word_idx ? true : false} 
-			{word}
-			/>
-	{/each} 
+	{#if show_results === false} 
+		{#each verse.split(" ") as word, idx}
+			<Word
+				on:gowordforward={ongowordforwards}
+				on:gowordbackwards={ongowordbackwards}
+				bind:this={words[idx]}
+				is_curr_word={idx === curr_word_idx ? true : false} 
+				{word}
+				/>
+		{/each}
+	{:else}
+		<h2>Results are blah</h2>
+	{/if}
 </div>
  

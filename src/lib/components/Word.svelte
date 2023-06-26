@@ -106,8 +106,6 @@
 			}
 		}
 
-		// X. Incorrect letter 
-
 		// Re-render new "Letter" state
 		letter_objects = letter_objects;
 		console.log(`After keydown: new index is ${curr_letter_idx}, letter is ${JSON.stringify(letter_objects[curr_letter_idx])}`);
@@ -170,6 +168,14 @@
 		letter_obj.is_last_letter = undefined;
 	}
 
+	// Updates two letters - the current & prior letter to "restart"
+	function letterBackwards(letter_obj) {
+		letterReset(letter_obj);
+		curr_letter_idx -= 1;
+		let prior_letter_obj = letter_objects[curr_letter_idx];
+		letterReset(prior_letter_obj);
+	}
+
 	function wordForwards(letter_obj) {
 		if (isLastLetter()) {
 			// "letter_obj" will be undefined as it's an index too far
@@ -186,16 +192,6 @@
 		console.log("word backwards");
 		letterReset(letter_obj);
 		dispatch("gowordbackwards");
-
-
-	}
-
-	// Updates two letters - the current & prior letter to "restart"
-	function letterBackwards(letter_obj) {
-		letterReset(letter_obj);
-		curr_letter_idx -= 1;
-		let prior_letter_obj = letter_objects[curr_letter_idx];
-		letterReset(prior_letter_obj);
 	}
 
 </script>
