@@ -8,7 +8,9 @@
 
 	export let is_correct = undefined;
 
-	export let is_last_letter = undefined
+	export let is_last_letter = undefined;
+
+	export let is_appended = undefined;
 </script>
 
 
@@ -17,6 +19,7 @@
 	class:last-letter={is_last_letter}
 	class:correct-letter={is_correct === true}
 	class:incorrect-letter={is_correct === false}
+	class:extra-letter={is_appended}
 	class:curr-letter={is_curr_letter} >
 	{letter}
 </span>

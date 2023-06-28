@@ -71,6 +71,11 @@ span .correct-letter {
     text-align:right;
     color: var(--correct-color);
 }
+span .extra-letter{
+    display:inline-block;
+    text-align:right;
+    color: var(--appended-color);
+}
 span .curr-letter {
     box-shadow: inset 2px 0 0 0;
     animation-name:text-cursor;

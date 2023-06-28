@@ -3,8 +3,6 @@
 	import { createEventDispatcher } from 'svelte';
 	import Letter from '$lib/components/Letter.svelte';
 
-	const dispatch = createEventDispatcher();
-
 	/**
 	 * Props
 	 */
@@ -16,8 +14,11 @@
 	export let is_curr_word = undefined;
 
 	/**
-	 * Internal State
+	 * Private State
 	 */
+
+	// Event Dispatcher
+	const dispatch = createEventDispatcher();
 
 	// Array of "letter" objects - main state for a word 
 	//  {
@@ -59,8 +60,9 @@
 	//
 	// Must do the following:
 	// 1. Branch off correct based on the class of key input (eg. space, back, correct)
-	// 2. Every branch/function must fully update that "Letter" object and possibly the letter before.
+	// 2. Every branch/function must fully update that "Letter" object and possibly the letter before/after.
 	// 3. Every branch/function must update the "curr_letter_idx" for the next current letter.
+	// 4. Finally, re-render our UI by letter object assignments
 	export function onkeydown(key) {
 
 		// ALWAYS start with the current letter - index may be the length of the word, meaning
@@ -74,23 +76,32 @@
 			wordForwards(current_letter_obj);
 		}
 
-		// X. Backspace
+		// 2. Backspace
 		else if (key === "Backspace") {
 			if (isFirstLetter()) {
 				wordBackwards(current_letter_obj);
 			}
 			else if (isLastLetter()) {
+				console.log('BACK - IS LAST LETTER');
+
 				// eg. "For" will have index 3; need to get 2
 				curr_letter_idx -= 1
 				current_letter_obj = letter_objects[curr_letter_idx];
-				letterReset(current_letter_obj);
+				
+				if (current_letter_obj.is_appended === true) {
+					letter_objects.pop();
+					letter_objects[curr_letter_idx - 1].is_last_letter = true;
+				}
+				else {
+					letterReset(current_letter_obj);
+				}
 			}
 			else {
 				letterBackwards(current_letter_obj);
 			}
 		}
 
-		// X. Correct letter was pressed - current letter will be null at the end
+		// 3. Correct letter was pressed - current letter will be null at the end
 		else if (key === current_letter_obj?.letter) {
 
 			// Current letter - update to be correct
@@ -98,12 +109,17 @@
 			
 		}
 
-		// X. Incorrect letter must have been pressed
+		// 4. Incorrect letter must have been pressed
 		else {
+
 			// At the end of the word - reference will not exist
 			if (!isLastLetter()) {
 				letterIncorrect(current_letter_obj);
 			}
+			else {
+				letterAdd(key);
+			}
+
 		}
 
 		// Re-render new "Letter" state
@@ -118,10 +134,7 @@
 	// Returns a boolean whether the currently typed letter is the last one.
 	function isLastLetter() {
 
-		// Get length of the word
-		let word_length = letter_objects.length
-
-		if (word_length === curr_letter_idx) {
+		if (letter_objects.length === curr_letter_idx) {
 			return true;
 		}
 		else {
@@ -162,10 +175,29 @@
 		}
 	}
 
+	function letterAdd(key) {
+		// First, access the (index - 1) letter, as the current one MUST be undefined due to the last letter
+		let letter_obj = letter_objects[curr_letter_idx - 1];
+		letter_obj.is_last_letter = false;
+
+		// Next, create a new letter object 
+		let appended_letter = 
+			{
+				letter: key, 
+				is_curr_letter: false, 
+				is_correct: undefined, 
+				is_last_letter: true,
+				is_appended: true
+			};
+		letter_objects.push(appended_letter);
+		curr_letter_idx += 1;
+	}
+
 	function letterReset(letter_obj) {
 		letter_obj.is_curr_letter = undefined;
 		letter_obj.is_correct = undefined;
 		letter_obj.is_last_letter = undefined;
+		letter_obj.is_appended = undefined;
 	}
 
 	// Updates two letters - the current & prior letter to "restart"
@@ -204,6 +236,7 @@
 			letter={letter_obj.letter} 
 			is_curr_letter={letter_obj.is_curr_letter}
 			is_correct={letter_obj.is_correct}
+			is_appended={letter_obj.is_appended}
 			is_last_letter={letter_obj.is_last_letter} /> 
 	{/each}
 </span>
