@@ -47,6 +47,17 @@
 		letter_objects[curr_letter_idx].is_curr_letter = true;
 	}
 
+	// Public function for determining whether the entire "Word" is spelled correctly.
+	// Either returns the number of correct letters if fully correct, or 0.
+	export function isWordCorrect() {
+		for (let letter of letter_objects) {
+			if (letter.is_correct !== true) {
+				return 0;
+			}
+		}
+		return letter_objects.length;
+	}
+
 	// Public function that checks whether the last position is on the
 	// last letter, if so, 
 	export function updateLastLetter() {

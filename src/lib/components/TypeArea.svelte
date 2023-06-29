@@ -12,11 +12,11 @@
 	verse = verse.replace(/(\r\n|\n|\r)/gm, "");
 
 	/**
-	 * Internal State
+	 * Private State
 	 */
 
 	// Flag that's switched when user finishes/resets type area.
-	let show_results = false;
+	let wpm = undefined;
 
 	// times for calculating WPM
 	let start_time = undefined;
@@ -39,9 +39,13 @@
             e.key === "CapsLock" ||
             e.key === "Tab") return;
 
-		// Call "onkeydown" on current "Word" component
+		// Call "onkeydown" on current "Word" component -
+		// The moment this happens - game has started
+		if (!start_time) {
+			console.log("TIME HAS STARTED");
+			start_time = new Date();
+		}
 		words[curr_word_idx].onkeydown(e.key);
-
 		console.log(`user pressed: ${e.key} - curr word index ${curr_word_idx}`);
 	}
 
@@ -65,7 +69,22 @@
 	}
 
 	function endGame() {
-		show_results = true;
+		end_time = new Date();
+		wpm = calculateWpm(start_time, end_time)
+	}
+
+	function calculateWpm(start_time, end_time) {
+		let minutes = (end_time - start_time) / 1000 / 60;
+		console.log(minutes);
+		let correctly_spelled_letters = 0;
+		for (let word of words) {
+			let correct_num = word.isWordCorrect();
+			// Get correct number of characters PLUS the implied "space"
+			if (correct_num) {
+				correctly_spelled_letters += (correct_num + 1)
+			}
+		}
+		return Math.round(correctly_spelled_letters / 5 / minutes);
 	}
 	
 </script>
@@ -75,7 +94,7 @@
 <svelte:window on:keydown={onkeydown}/>
 
 <div>
-	{#if show_results === false} 
+	{#if !wpm} 
 		{#each verse.split(" ") as word, idx}
 			<Word
 				on:gowordforward={ongowordforwards}
@@ -86,7 +105,7 @@
 				/>
 		{/each}
 	{:else}
-		<h2>Results are blah</h2>
+		<h2>{wpm}</h2>
 	{/if}
 </div>
  
