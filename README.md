@@ -14,11 +14,11 @@ npm run dev
 
 
 ## Milestones
-~~- 1/7/21: Released 1st "version" publicly
-- 1/8/21: Released v1.0.0 of BibleType
-- XX/XX/21: Introduce User accounts~~
+~~1/7/21: Released 1st "version" publicly~~
+~~1/8/21: Released v1.0.0 of BibleType~~
+~~XX/XX/21: Introduce User accounts~~
 
-- 06/28/23: Revamping entire app
+- 06/28/23: Revamping
 
 ## Authors and Acknowledgment
 I want to thank [Tim Morgan](https://github.com/seven1m) for his
