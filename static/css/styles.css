@@ -1,0 +1,108 @@
+/* CSS Variables */
+:root {
+    --correct-color:#a9eee6;
+    --incorrect-color:#f38181;
+    --appended-color:#ef4f4f;
+}
+
+/* General */
+html {
+    height: 100%;
+    scrollbar-gutter: stable both-edges;        /* SO IMPORTANT TO HANDLE PAGES LONGER THAN 100% */
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Roboto Mono', monospace;
+    width:60%;
+    height:100%;
+    margin: 0 auto;
+}
+h1, h2 {
+    margin-top:2rem;
+    margin-bottom:1rem;
+}
+
+
+/* Main div - main flexbox container */
+.main {
+    height: 100%;
+
+    /* Flex Container */
+    display: flex;
+    flex-direction:column;
+}
+
+/* Navigation Bar */
+.navbar {
+    display:flex;
+    align-items:center;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+}
+.link {
+    display:inline-block;
+    margin-right:1.5rem;
+    font-size:1.5rem;
+    color: #ffe08e;
+}
+.push-right {
+    margin-left: auto;
+}
+
+/* Footer */
+.footer {
+    margin-top: auto;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+/* TypeArea and Cursor effects */
+span .incorrect-letter {
+    display:inline-block;
+    text-align:right;
+    color: var(--incorrect-color);
+}
+span .correct-letter {
+    display:inline-block;
+    text-align:right;
+    color: var(--correct-color);
+}
+span .extra-letter{
+    display:inline-block;
+    text-align:right;
+    color: var(--appended-color);
+}
+span .curr-letter {
+    box-shadow: inset 2px 0 0 0;
+    animation-name:text-cursor;
+    animation-duration:.6s;
+    animation-direction:alternate;
+    animation-iteration-count:infinite;
+}
+span .last-letter {
+    box-shadow: inset -2px 0 0 0;
+    animation-name:text-cursor-right;
+    animation-duration:.6s;
+    animation-direction:alternate;
+    animation-iteration-count:infinite;
+}
+@keyframes text-cursor {
+    from {
+        box-shadow: inset 2px 0 0 0 #a57c80;
+    }
+    to {
+        box-shadow: inset 2px 0 0 0 transparent;
+    }
+}
+@keyframes text-cursor-right {
+    from {
+        box-shadow: inset -2px 0 0 0 #a57c80;
+    }
+    to {
+        box-shadow: inset -2px 0 0 0 transparent;
+    }
+}

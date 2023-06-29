@@ -6,8 +6,6 @@ __pycache__/
 db.sqlite3
 media
 
-node_modules
-package-lock.json
 *.log
 *.gz
 
@@ -20,3 +18,25 @@ benchmarks/graphs
 
 # mac
 *.DS_Store
+
+
+# Pull from RichHarris sveltekit ignore
+node_modules
+dist
+test-results/
+package-lock.json
+yarn.lock
+vite.config.js.timestamp-*
+/packages/create-svelte/template/CHANGELOG.md
+/packages/package/test/**/package
+/documentation/types.js
+.env
+.vercel_build_output
+.svelte-kit
+.cloudflare
+.pnpm-debug.log
+.netlify
+.turbo
+.vercel
+.test-tmp
+symlink-from
