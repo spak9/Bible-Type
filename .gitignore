@@ -19,7 +19,6 @@ benchmarks/graphs
 # mac
 *.DS_Store
 
-
 # Pull from RichHarris sveltekit ignore
 node_modules
 dist

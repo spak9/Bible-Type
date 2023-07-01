@@ -22,8 +22,9 @@
 	let start_time = undefined;
 	let end_time = undefined;
 
-	// Array of "Word" components 
-	let words = [];
+	// Array of "Word" components and word strings
+	let words = verse.split(" ");
+	let word_refs = [];
 
 	// Index to the current "Word" component
 	let curr_word_idx = 0
@@ -45,7 +46,7 @@
 			console.log("TIME HAS STARTED");
 			start_time = new Date();
 		}
-		words[curr_word_idx].onkeydown(e.key);
+		word_refs[curr_word_idx].onkeydown(e.key);
 		console.log(`user pressed: ${e.key} - curr word index ${curr_word_idx}`);
 	}
 
@@ -56,7 +57,7 @@
 		}
 		else {
 			curr_word_idx -= 1;
-			words[curr_word_idx].updateLastLetter();
+			word_refs[curr_word_idx].updateLastLetter();
 		}
 	}
 
@@ -77,7 +78,7 @@
 		let minutes = (end_time - start_time) / 1000 / 60;
 		console.log(minutes);
 		let correctly_spelled_letters = 0;
-		for (let word of words) {
+		for (let word of word_refs) {
 			let correct_num = word.isWordCorrect();
 			// Get correct number of characters PLUS the implied "space"
 			if (correct_num) {
@@ -95,12 +96,13 @@
 
 <div>
 	{#if !wpm} 
-		{#each verse.split(" ") as word, idx}
+		{#each words as word, idx}
 			<Word
 				on:gowordforward={ongowordforwards}
 				on:gowordbackwards={ongowordbackwards}
-				bind:this={words[idx]}
+				bind:this={word_refs[idx]}
 				is_curr_word={idx === curr_word_idx ? true : false} 
+				is_last_word={idx === (words.length - 1) ? true : false}
 				{word}
 				/>
 		{/each}

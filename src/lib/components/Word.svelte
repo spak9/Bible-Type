@@ -13,6 +13,9 @@
 	// Bool for whether this word is the current word being typed
 	export let is_curr_word = undefined;
 
+	// Bool for knowing whether this is the last word
+	export let is_last_word = undefined;
+
 	/**
 	 * Private State
 	 */
@@ -182,6 +185,11 @@
 		// special case - if last letter, move cursor to the right
 		if (isLastLetter()) {
 			letter_obj.is_last_letter = true;
+
+			// game over - last letter of last word was 
+			if (is_last_word) {
+				dispatch("gowordforward");
+			}
 			return;
 		}
 	}
