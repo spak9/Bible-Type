@@ -95,6 +95,7 @@
 <svelte:window on:keydown={onkeydown}/>
 
 <div>
+	<!-- Game On -->
 	{#if !wpm} 
 		{#each words as word, idx}
 			<Word
@@ -106,8 +107,11 @@
 				{word}
 				/>
 		{/each}
+
+	
+	<!-- Game Off -->
 	{:else}
-		<h2>{wpm}</h2>
+		<h2>WPM: {wpm}</h2>
 	{/if}
 </div>
  

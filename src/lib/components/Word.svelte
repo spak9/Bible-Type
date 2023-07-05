@@ -24,12 +24,6 @@
 	const dispatch = createEventDispatcher();
 
 	// Array of "letter" objects - main state for a word 
-	//  {
-	//		letter: str,
-	//		is_curr_letter: bool,
-	//		is_correct: bool,
-	//		is_last_letter: bool
-	//  }
 	let letter_objects = [];
 
 	// Index for what the current letter in the word
@@ -46,6 +40,7 @@
 	}
 
 	// Reactively ensure that the current word and its letters are updated 
+	// - Last letter implies it should be on the right side of the word
 	$: if (is_curr_word === true && !isLastLetter()) {
 		letter_objects[curr_letter_idx].is_curr_letter = true;
 	}
