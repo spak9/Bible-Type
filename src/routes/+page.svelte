@@ -3,6 +3,8 @@
 	import TypeArea from '$lib/components/TypeArea.svelte';
 	import TypeAreaMenu from '$lib/components/TypeAreaMenu.svelte';
 
+	console.log("+page.svelte at /");
+
 	export let data;
 
 	// String of the bible verse text from "bible-api"

@@ -1,3 +1,7 @@
+<script>
+    console.log("+page.svelte at /about");
+</script>
+
 <h1>Bible Type</h1>
 <p>Thanks for visiting Bible Type!</p>
 <p>
