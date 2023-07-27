@@ -3,7 +3,9 @@ import PocketBase from 'pocketbase'
 
 export async function handle({ event, resolve }) {
     console.log(`Incoming request from ${event.url.pathname}`)
-    event.locals.pb = new PocketBase("https://localhost:5174");
+    
+    // Add PocketBase instance to "locals" kv store
+    event.locals.pb = new PocketBase("http://127.0.0.1:8090");
 
     // Load/Feed into user's cookie
     event.locals.pb.authStore.loadFromCookie(event.request.headers.get("pb_auth") || "");
