@@ -1,3 +1,5 @@
+import { redirect } from '@sveltejs/kit';
+
 export function load({ request }) {
     console.log(`+page.server.js at ${request.url}`)
 }
@@ -15,15 +17,17 @@ export const actions = {
         const password = form_data.get('password');
         const confirm_password = form_data.get('confirm-password');
 
-        // Create a brand-new user
-        const record = await pb.collection('users').create({
+        // Create a brand-new user Record
+        await pb.collection('users').create({
             email: email,
             password: password,
             passwordConfirm: confirm_password
         });
 
-        console.log(`RESPONSE: ${record}`)
+        // If user record is successfully created, authenticate the user and update store
+        const auth_data = await pb.collection('users').authWithPassword(email, password);
 
-        return {success: true};
+        // Redirect to same route
+        throw redirect(303, event.route.id);
     }
 }
