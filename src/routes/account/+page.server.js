@@ -29,5 +29,21 @@ export const actions = {
 
         // Redirect to same route, now with authstore updated
         throw redirect(303, event.route.id);
+    },
+    login: async (event) => {
+
+        // Grab PocketBase instance
+        const pb = event.locals.pb;
+
+        // Grab form data from login
+        const form_data = await event.request.formData();
+        const email = form_data.get('email')
+        const password = form_data.get('password');
+
+        // Log user in
+        await pb.collection('users').authWithPassword(email, password);
+
+        // Redirect to same route, now with authstore updated
+        throw redirect(303, event.route.id);
     }
 }
