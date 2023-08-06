@@ -25,9 +25,9 @@ export const actions = {
         });
 
         // If user record is successfully created, authenticate the user and update store
-        const auth_data = await pb.collection('users').authWithPassword(email, password);
+        await pb.collection('users').authWithPassword(email, password);
 
-        // Redirect to same route
+        // Redirect to same route, now with authstore updated
         throw redirect(303, event.route.id);
     }
 }

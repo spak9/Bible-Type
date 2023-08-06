@@ -2,10 +2,6 @@
     console.log("+page.svelte at /account");
 
     export let data;
-    
-    if (data.user) {
-        console.log("/account - user exists!");
-    }
 </script>
 
 

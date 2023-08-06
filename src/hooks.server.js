@@ -12,11 +12,12 @@ export async function handle({ event, resolve }) {
     const cookie = event.request.headers.get("cookie") || "";
     event.locals.pb.authStore.loadFromCookie(cookie);
 
-    // If user is logged-in, add User data to "RequestEvent"
+    // 1. User is logged IN
     if (event.locals.pb.authStore.isValid) {
         event.locals.user = serializeNonPOJOs(event.locals.pb.authStore.model);
         console.log(`+hooks.server.js - AuthStore is valid - ${event.locals.user}`);
     }
+    // 2. User is logged OUT
     else {
         event.locals.user = undefined;
     }
@@ -27,7 +28,6 @@ export async function handle({ event, resolve }) {
     // Update HTTP Response with some cookies - 
     // Setting "pb_auth" cookie
     res.headers.append("set-cookie", event.locals.pb.authStore.exportToCookie())
-    console.log("+hooks - ", res.headers);
 
     return res;
 }

@@ -1,6 +1,7 @@
 <script>
     import IconButton, { Icon } from '@smui/icon-button';
-    let clicked = 0;
+
+    export let data;
 </script>
 
 
@@ -11,22 +12,26 @@
         href="/about" 
         class="material-icons link" 
         size="mini" 
-        ripple={false}
-        on:click={() => clicked++}>
+        ripple={false}>
         info
     </IconButton>
     <IconButton 
         href="/account" 
         class="material-icons link push-right" 
         size="mini" 
-        ripple={false}
-        on:click={() => clicked++}>
+        ripple={false}>
         person
     </IconButton>
-    <!-- <form class="search-verse" method="post">
-        <input id="verse-input" type="text" name="verse-input" placeholder="John 3:16">
-    </form> -->
-    <!-- <a class="verse-btn link" onclick="getVerse()" href="#">Find Verse</a> -->
+    {#if data.user}
+        <form method="POST" action="/logout">
+            <IconButton
+                class="material-icons link"
+                size="mini"
+                ripple={false}>
+            logout
+            </IconButton> 
+        </form>
+    {/if}
 </nav>
 
 
