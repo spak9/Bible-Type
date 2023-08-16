@@ -3,6 +3,12 @@
     --correct-color:#a9eee6;
     --incorrect-color:#f38181;
     --appended-color:#ef4f4f;
+    /* 
+        Special case of updating the CSS properties directly for Material Typography
+        not sure if it's the right way, but it works
+        See: https://sveltematerialui.com/THEMING.md
+    */
+    --mdc-typography-font-family: 'Roboto Mono', monospace;
 }
 
 /* General */
