@@ -12,6 +12,8 @@
     let login_username = "";
     let login_password = "";
 
+    let reg_input = undefined;
+
 </script>
 
 {#if data.user}
@@ -25,18 +27,25 @@
                 <Textfield 
                 required
                 label="Username" 
-                bind:value={reg_username}></Textfield>
+                input$name="email"
+                bind:input={reg_input}
+                bind:value={reg_username}>
+                </Textfield>
             </div>
             <div>
                 <Textfield 
                 required
+                type="password"
                 label="Password" 
+                input$name="password"
                 bind:value={reg_password}></Textfield>
             </div>
             <div>
                 <Textfield 
                 required
+                type="password"
                 label="Confirm Password"
+                input$name="confirm-password"
                 bind:value={reg_confirm_password}></Textfield>
             </div>
             <button type="submit">Register</button>
@@ -53,6 +62,7 @@
             <div>
                 <Textfield 
                 required
+                type="password"
                 label="Password" 
                 bind:value={login_password}></Textfield>
             </div>
