@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 export function load({ request }) {
     console.log(`+page.server.js at ${request.url}`)
@@ -17,12 +17,23 @@ export const actions = {
         const password = form_data.get('password');
         const confirm_password = form_data.get('confirm-password');
 
+        // Check if passwords are the same
+        if (password !== confirm_password) {
+            console.log('[+] passwords were not the same');
+            return fail(400, { message: 'Passwords were not the same'})
+        }
+
         // Create a brand-new user Record
-        await pb.collection('users').create({
-            email: email,
-            password: password,
-            passwordConfirm: confirm_password
-        });
+        try {
+            await pb.collection('users').create({
+                email: email,
+                password: password,
+                passwordConfirm: confirm_password
+            });
+        } catch (e) {
+            console.log(`[+] - ${e.toString()}`)
+            return fail(400, {})
+        }
 
         // If user record is successfully created, authenticate the user and update store
         await pb.collection('users').authWithPassword(email, password);

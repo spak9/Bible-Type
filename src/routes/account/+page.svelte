@@ -4,6 +4,7 @@
     console.log("+page.svelte at /account");
 
     export let data;
+    export let form;
 
     let reg_username = "";
     let reg_password = "";
@@ -12,10 +13,12 @@
     let login_username = "";
     let login_password = "";
 
-    let reg_input = undefined;
-
 </script>
 
+
+{#if form?.message}
+    <h2>{form.message}</h2>
+{/if}
 {#if data.user}
     <h2>User is logged in</h2>
 {:else}
@@ -28,7 +31,6 @@
                 required
                 label="Username" 
                 input$name="email"
-                bind:input={reg_input}
                 bind:value={reg_username}>
                 </Textfield>
             </div>
@@ -56,7 +58,8 @@
             <div>
                 <Textfield 
                 required
-                label="Username" 
+                label="Username"
+                input$name="email"
                 bind:value={login_username}></Textfield>
             </div>
             <div>
@@ -64,6 +67,7 @@
                 required
                 type="password"
                 label="Password" 
+                input$name="password"
                 bind:value={login_password}></Textfield>
             </div>
             <button type="submit">Login</button>
