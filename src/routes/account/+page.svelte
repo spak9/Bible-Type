@@ -1,15 +1,23 @@
 <script>
     import Textfield from '@smui/textfield';
+    import Button, { Label } from '@smui/button';
 
     console.log("+page.svelte at /account");
 
+    // +page data
     export let data;
+
+    // data from login/registration form actions
+    // e.g error codes
     export let form;
 
+    // Registration state
     let reg_username = "";
+    let reg_email = "";
     let reg_password = "";
     let reg_confirm_password = "";
 
+    // Login state
     let login_username = "";
     let login_password = "";
 
@@ -30,8 +38,17 @@
                 <Textfield 
                 required
                 label="Username" 
-                input$name="email"
+                input$name="username"
                 bind:value={reg_username}>
+                </Textfield>
+            </div>
+            <div>
+                <Textfield 
+                required
+                label="Email" 
+                input$name="email"
+                input$type="email"
+                bind:value={reg_email}>
                 </Textfield>
             </div>
             <div>
@@ -50,7 +67,9 @@
                 input$name="confirm-password"
                 bind:value={reg_confirm_password}></Textfield>
             </div>
-            <button type="submit">Register</button>
+            <Button type="submit">
+                <Label>Register</Label>
+            </Button>
         </form>
         
         <form action="?/login" method="POST" class="account-form">
@@ -58,7 +77,7 @@
             <div>
                 <Textfield 
                 required
-                label="Username"
+                label="Email"
                 input$name="email"
                 bind:value={login_username}></Textfield>
             </div>
@@ -70,7 +89,9 @@
                 input$name="password"
                 bind:value={login_password}></Textfield>
             </div>
-            <button type="submit">Login</button>
+            <Button type="submit">
+                <Label>Login</Label>
+            </Button>
         </form>
     </div>
 {/if}
