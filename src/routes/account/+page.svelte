@@ -8,7 +8,7 @@
     export let data;
 
     // data from login/registration form actions
-    // e.g error codes
+    // e.g error
     export let form;
 
     // Registration state
@@ -23,10 +23,11 @@
 
 </script>
 
-
+<!-- Form action has a error message -->
 {#if form?.message}
     <h2>{form.message}</h2>
 {/if}
+
 {#if data.user}
     <h2>User is logged in</h2>
 {:else}
