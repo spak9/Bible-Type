@@ -6,23 +6,16 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"prepare": "npm run smui-theme-light",
-		"smui-theme-light": "smui-theme compile static/css/smui.css -i src/theme"
+		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
 	},
 	"devDependencies": {
-		"@smui/button": "^7.0.0-beta.8",
-		"@smui/circular-progress": "^7.0.0-beta.8",
-		"@smui/dialog": "^7.0.0-beta.8",
-		"@smui/icon-button": "^7.0.0-beta.8",
-		"@smui/textfield": "^7.0.0-beta.8",
 		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/kit": "^1.5.0",
-		"smui-theme": "^7.0.0-beta.8",
-		"svelte": "^3.54.0",
-		"vite": "^4.3.0"
+		"@sveltejs/kit": "^1.20.4",
+		"svelte": "^4.0.5",
+		"svelte-check": "^3.4.3",
+		"typescript": "^5.0.0",
+		"vite": "^4.4.2"
 	},
-	"type": "module",
-	"dependencies": {
-		"pocketbase": "^0.18.0"
-	}
+	"type": "module"
 }

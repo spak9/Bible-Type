@@ -1,44 +1,10 @@
-# Django #
-*.log
-*.pot
-*.pyc
-__pycache__/
-db.sqlite3
-media
-
-*.log
-*.gz
-
-# Coveralls
-.nyc_output
-coverage
-
-# Benchmarking
-benchmarks/graphs
-
-# mac
-*.DS_Store
-
-# Pull from RichHarris sveltekit ignore
+.DS_Store
 node_modules
-dist
-test-results/
-package-lock.json
-yarn.lock
-vite.config.js.timestamp-*
-/packages/create-svelte/template/CHANGELOG.md
-/packages/package/test/**/package
-/documentation/types.js
+/build
+/.svelte-kit
+/package
 .env
-.vercel_build_output
-.svelte-kit
-.cloudflare
-.pnpm-debug.log
-.netlify
-.turbo
-.vercel
-.test-tmp
-symlink-from
-
-# PocketBase specific
-**/pb_data
+.env.*
+!.env.example
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
