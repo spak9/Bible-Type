@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 	<head>
 		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 
+		<!-- Font Awesome -->
+		<script src="https://kit.fontawesome.com/1f80f5da4a.js" crossorigin="anonymous"></script>
+				
 		<!-- Stylesheets - see app.postcss -->
 
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
 	</head>
 
 	<!-- Main Content - Skeleton vintage theme - see tailwind.config.cjs -->
-	<body data-theme="vintage" data-sveltekit-preload-data="hover">
+	<body data-theme="vintage" data-sveltekit-preload-data="hover" class="w-8/12 mx-auto">
 		<div style="display: contents" class="h-full overflow-hidden">%sveltekit.body%</div>
 	</body>
 	
