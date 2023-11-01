@@ -4,6 +4,7 @@
  * "User" model from PocketBase is returned to each respective page if logged in.
  */
 export function load( {locals }) {
+    console.log("+layout.server.js load()")
     if (locals.user) {
         console.log("+layout.server.js - User exists!");
         return {

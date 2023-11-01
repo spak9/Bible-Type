@@ -1,4 +1,5 @@
 <script>
+  console.log("+layout.svelte route")
   import "../app.postcss";
   import { AppShell } from '@skeletonlabs/skeleton';
 
@@ -28,8 +29,10 @@
     </nav>
   </svelte:fragment>
 
-  <!-- Page Slot -->
-  <slot />
+  <!-- Page Slot - always make sure page content is about 80% width of parent (75% ish) -->
+  <div class="h-full w-10/12 mx-auto">
+    <slot />
+  </div>
 
   <!-- Footer -->
   <div slot="footer" class="my-4 text-center">© Steven Pak 2023</div>
