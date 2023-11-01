@@ -8,10 +8,10 @@
 
 
 <!-- AppShell == Header + page slot + Footer -->
-<AppShell>
+<AppShell scrollbarGutter="stable">
   <!-- Header/Navbar -->
-  <svelte:fragment slot="header">
-    <nav class="flex items-center my-8">
+  <svelte:fragment slot="pageHeader">
+    <nav class="flex items-center my-8 mx-auto w-10/12">
       <a href="/" class="btn">
         Bible Type
       </a>
@@ -30,10 +30,10 @@
   </svelte:fragment>
 
   <!-- Page Slot - always make sure page content is about 80% width of parent (75% ish) -->
-  <div class="h-full w-10/12 mx-auto">
+  <div class="h-full w-8/12 mx-auto">
     <slot />
   </div>
 
   <!-- Footer -->
-  <div slot="footer" class="my-4 text-center">© Steven Pak 2023</div>
+  <div slot="pageFooter" class="my-4 text-center">© Steven Pak 2023</div>
 </AppShell>
