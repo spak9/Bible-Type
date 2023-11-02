@@ -1,5 +1,3 @@
-
-
 // @ts-check
 
 // 1. Import the Skeleton plugin
@@ -20,11 +18,11 @@ module.exports = {
 	theme: {
 		extend: {},
 	},
+
 	plugins: [
-		// 4. Append the Skeleton plugin (after other plugins)
 		skeleton({
-      themes: { preset: [ "vintage" ] }
-    })
+			themes: { preset: [ "vintage" ] }
+		})
 	]
 }
 						

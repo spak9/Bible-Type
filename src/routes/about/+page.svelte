@@ -2,7 +2,7 @@
     console.log("+page.svelte /about");
 </script>
 
-<h1>Bible Type</h1>
+<h1 class="h1">Bible Type</h1>
 <p>Thanks for visiting Bible Type!</p>
 <p>
     Bible Type was a project that began as a small nugget
@@ -14,16 +14,16 @@
     toes into some basic web development and see what I
     could do, and after a lot of trial & error...
     <br>
-    <br>
     Boom! From virtual dust came Bible Type!
 </p>
-<h2>Inspirations + Thanks</h2>
+<br>
+<h2 class="h2">Inspirations + Thanks</h2>
 <p>
     For those who are more inclined towards typing games,
     you may be thinking that it looks quite similar to
-    <a class="underline" href="https://monkeytype.com/">MonkeyType</a>, and
+    <a class="anchor" href="https://monkeytype.com/">MonkeyType</a>, and
     that's because I was super inspired by it.
-    <a class="underline" href="https://monkeytype.com/">MonkeyType</a> is also a
+    <a class="anchor" href="https://monkeytype.com/">MonkeyType</a> is also a
     typing application which I looked towards for inspiration regarding UX design decisions such as cursor animations or
     decisions regarding different keys, so I highly
     encourage you to
@@ -32,8 +32,8 @@
 </p>
 <br>
 <p>
-    I also want to thank <a class="underline" href="https://github.com/seven1m">Tim Morgan</a>,
-    the creator of <a class="underline" href="https://github.com/seven1m/bible_api">bible-api.</a>
+    I also want to thank <a class="anchor" href="https://github.com/seven1m">Tim Morgan</a>,
+    the creator of <a class="anchor" href="https://github.com/seven1m/bible_api">bible-api.</a>
     Sometimes, the whole process of signing up for api keys and
     reading all the terms & service agreements can be a bit
     overwhelming, but thankfully Tim had created this really simple
@@ -54,14 +54,14 @@
     knowing that I'm here in this present moment with you. Thank
     you for being my encouragement in moments I didn't want
     to complete this. Thank you for allowing me to hear Your
-    word at <a class="underline" href="https://www.crosscon.com/">CROSS20</a>, even though I didn't want even go at first.
+    word at <a class="anchor" href="https://www.crosscon.com/">CROSS20</a>, even though I didn't want even go at first.
     To be honest, evangelism wasn't my goal with this project, but
     I hope that you would use my ill intentions for Your glory.
 </p>
-<h2>More</h2>
+<br>
+<h2 class="h2">More</h2>
 <p>
-    Although sparse, my <a class="underline" href="https://www.stevenpak.me/">personal website</a>
+    Although sparse, my <a class="anchor" href="https://www.stevenpak.me/">personal website</a>
     has a bit more information about me and some of the other projects I'm
     working on, so if you're interested in helping, please contact me through that!
 </p>
-<br><br>

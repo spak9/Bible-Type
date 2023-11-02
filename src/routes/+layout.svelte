@@ -7,7 +7,7 @@
 </script>
 
 
-<!-- AppShell == Header + page slot + Footer -->
+<!-- AppShell -->
 <AppShell scrollbarGutter="stable">
   <!-- Header/Navbar -->
   <svelte:fragment slot="pageHeader">

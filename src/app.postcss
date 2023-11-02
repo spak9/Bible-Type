@@ -1,6 +1,19 @@
 /* Write your global styles here, in PostCSS syntax */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root [data-theme='vintage'] {
+  --theme-font-family-base: 'Roboto Mono', monospace;
+  --theme-font-family-heading: font-family: 'Roboto Mono', monospace;
+}
+
 html, body { @apply h-full; }
+
+h1, h2, h3, h4, h5, h6 { 
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
+}
