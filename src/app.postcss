@@ -1,14 +1,13 @@
 /* Write your global styles here, in PostCSS syntax */
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Global variables, both Skeleton theming and TypeArea stuff */
 :root [data-theme='vintage'] {
   --theme-font-family-base: 'Roboto Mono', monospace;
-  --theme-font-family-heading: font-family: 'Roboto Mono', monospace;
+  --theme-font-family-heading: 'Roboto Mono', monospace;
 }
 
 html, body { @apply h-full; }
@@ -16,4 +15,51 @@ html, body { @apply h-full; }
 h1, h2, h3, h4, h5, h6 { 
   margin-top: 0.625rem;
   margin-bottom: 0.625rem;
+}
+
+/* TypeArea and Cursor effects */
+span .incorrect-letter {
+  /* display:inline-block; */
+  text-align:right;
+  color: red;
+}
+span .correct-letter {
+  /* display:inline-block; */
+  text-align:right;
+  color: rgb(var(--color-primary-500));
+}
+span .extra-letter{
+  display:inline-block;
+  text-align:right;
+  color: rgb(202, 52, 51);
+}
+span .curr-letter {
+    box-shadow: inset 2px 0 0 0;
+    animation-name:text-cursor;
+    animation-duration:.6s;
+    animation-direction:alternate;
+    animation-iteration-count:infinite;
+}
+span .last-letter {
+  box-shadow: inset -2px 0 0 0;
+  animation-name:text-cursor-right;
+  animation-duration:.6s;
+  animation-direction:alternate;
+  animation-iteration-count:infinite;
+}
+@keyframes text-cursor {
+  from {
+    box-shadow: inset 2px 0 0 0 rgb(var(--color-primary-800));
+  }
+  to {
+    box-shadow: inset 2px 0 0 0 transparent;
+  }
+}
+@keyframes text-cursor-right {
+  from {
+    box-shadow: inset -2px 0 0 0 rgb(var(--color-primary-800));
+  }
+  to {
+    box-shadow: inset -2px 0 0 0 transparent;
+  }
 }
