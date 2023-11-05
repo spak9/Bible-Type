@@ -35,7 +35,7 @@
   {#if error_message}
     <h2>{error_message}</h2>
   {:else}
-    <!-- Must bed keyed as we need to reinstantiate TypeArea, not merely update it (see component lifecycle)-->
+    <!-- Must be keyed as we need to reinstantiate TypeArea, not merely update it (see component lifecycle)-->
     {#key verse_text}
       <TypeArea verse={verse_text} />
     {/key}

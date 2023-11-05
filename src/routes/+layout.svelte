@@ -22,8 +22,10 @@
         <i class="fas fa-user"></i> 
       </a>
       {#if data.user}
-        <form method="POST" action="/logout" class="">
-          <i class="fas fa-sign-out-alt"></i>
+        <form method="POST" action="/account?/logout">
+          <button class="btn-icon">
+            <i class="fas fa-sign-out-alt btn-icon"></i>
+          </button>
         </form>
       {/if}
     </nav>
