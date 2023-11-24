@@ -5,6 +5,9 @@
   
   export let data;
 
+  // Boolean flag to restart the TypeArea - see "restartGame" 
+  let restart = false;
+
   // String of the bible verse text from "bible-api"
   let verse_text = data.verse;
 
@@ -27,6 +30,11 @@
 			error_message = undefined;
 		}
 	}
+
+  function onRestart() {
+    console.log("restart")
+    restart = !restart
+  }
 </script>
 
 
@@ -36,8 +44,8 @@
     <h2>{error_message}</h2>
   {:else}
     <!-- Must be keyed as we need to reinstantiate TypeArea, not merely update it (see component lifecycle)-->
-    {#key verse_text}
-      <TypeArea verse={verse_text} />
+    {#key restart}
+      <TypeArea verse={verse_text} on:restart={onRestart}/>
     {/key}
   {/if}
 </div>

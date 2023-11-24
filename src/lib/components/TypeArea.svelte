@@ -1,7 +1,9 @@
 <!-- Script -->
 <script>
-	import { onMount } from 'svelte';
 	import Word from '$lib/components/Word.svelte';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	/**
 	 * Props
@@ -33,18 +35,18 @@
 	function onkeydown(e) {
 
 		// Ignore special/modifier keys
-        if (e.key === "Shift" ||
-            e.key === "Alt" ||
-            e.key === "Control" ||
-            e.key === "Meta" ||
-            e.key === "CapsLock" ||
-            e.key === "Tab") return;
+		if (e.key === "Shift" ||
+				e.key === "Alt" ||
+				e.key === "Control" ||
+				e.key === "Meta" ||
+				e.key === "CapsLock" ||
+				e.key === "Tab") return;
 
 		// Call "onkeydown" on current "Word" component -
 		// The moment this happens - game has started
 		if (!start_time) {
-			console.log("TIME HAS STARTED");
 			start_time = new Date();
+			console.log(`TIME HAS STARTED - ${start_time.toString()}`);
 		}
 		word_refs[curr_word_idx].onkeydown(e.key);
 		console.log(`user pressed: ${e.key} - curr word index ${curr_word_idx}`);
@@ -87,6 +89,13 @@
 		}
 		return Math.round(correctly_spelled_letters / 5 / minutes);
 	}
+
+	/**
+	 * Restarts the 
+	 */
+	function restartGame() {
+		dispatch('restart', {});
+	}
 	
 </script>
 
@@ -105,13 +114,21 @@
 				is_curr_word={idx === curr_word_idx ? true : false} 
 				is_last_word={idx === (words.length - 1) ? true : false}
 				{word}
-				/>
+			/>
 		{/each}
-
-	
 	<!-- Game Off -->
 	{:else}
 		<h2>WPM: {wpm}</h2>
 	{/if}
+</div>
+
+<!-- TypeArea Menu-->
+<div class="flex justify-content items-center py-4">
+	<button type="button" class="btn-icon text-primary-600" on:click={restartGame}>
+		<i class="fas fa-redo"></i>
+	</button>
+	<button type="button" class="btn-icon text-primary-600">
+		<i class="fas fa-search"></i>
+	</button>
 </div>
  
