@@ -2,6 +2,7 @@
 <script>
   console.log("+page.svelte /")
   import TypeArea from '$lib/components/TypeArea.svelte'
+  import { TypeAreaStore } from '$lib/stores/TypeAreaStore.js';
   
   export let data;
 
@@ -31,10 +32,6 @@
 		}
 	}
 
-  function onRestart() {
-    console.log("restart")
-    restart = !restart
-  }
 </script>
 
 
@@ -44,8 +41,8 @@
     <h2>{error_message}</h2>
   {:else}
     <!-- Must be keyed as we need to reinstantiate TypeArea, not merely update it (see component lifecycle)-->
-    {#key restart}
-      <TypeArea verse={verse_text} on:restart={onRestart}/>
+    {#key $TypeAreaStore.restart}
+      <TypeArea verse={verse_text} />
     {/key}
   {/if}
 </div>

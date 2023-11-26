@@ -2,8 +2,13 @@
   console.log("+layout.svelte route")
   import "../app.postcss";
   import { AppShell } from '@skeletonlabs/skeleton';
+  import { TypeAreaStore } from '$lib/stores/TypeAreaStore';
 
   export let data;
+
+  function restartTypeArea() {
+    $TypeAreaStore.restart = !$TypeAreaStore.restart
+  }
 </script>
 
 
@@ -12,7 +17,7 @@
   <!-- Header/Navbar -->
   <svelte:fragment slot="pageHeader">
     <nav class="flex items-center my-8 mx-auto w-10/12">
-      <a href="/" class="btn">
+      <a href="/" class="btn" on:click={restartTypeArea}>
         Bible Type
       </a>
       <a href="/about" class="btn-icon ml-auto">

@@ -1,9 +1,7 @@
 <!-- Script -->
 <script>
 	import Word from '$lib/components/Word.svelte';
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatch = createEventDispatcher();
+	import { TypeAreaStore } from '$lib/stores/TypeAreaStore';
 
 	/**
 	 * Props
@@ -91,10 +89,10 @@
 	}
 
 	/**
-	 * Restarts the 
+	 * Updates the `TypeArea` by updating the `TypeAreaStore` restart value
 	 */
-	function restartGame() {
-		dispatch('restart', {});
+	function restartTypeArea() {
+		$TypeAreaStore.restart = !$TypeAreaStore.restart
 	}
 	
 </script>
@@ -124,7 +122,7 @@
 
 <!-- TypeArea Menu-->
 <div class="flex justify-content items-center py-4">
-	<button type="button" class="btn-icon text-primary-600" on:click={restartGame}>
+	<button type="button" class="btn-icon text-primary-600" on:click={restartTypeArea}>
 		<i class="fas fa-redo"></i>
 	</button>
 	<button type="button" class="btn-icon text-primary-600">

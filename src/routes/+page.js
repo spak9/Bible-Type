@@ -1,7 +1,7 @@
 export async function load({ fetch }) {
   // 1. Get user's prefs and get verse
   // TODO: Use daily verse perhaps?
-  console.log("+page.js load()")
+  console.log("+page.js at / load()")
   let verseText = "For God so loved the world"
   try {
     const verse = "john 3:16";
@@ -12,6 +12,7 @@ export async function load({ fetch }) {
     console.log(e)
   }
   
+  console.log("+page.js at / load() returning")
   return {
     verse: verseText
   }
