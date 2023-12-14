@@ -1,17 +1,21 @@
 <script>
   console.log("+layout.svelte route")
   import "../app.postcss";
-  import { AppShell } from '@skeletonlabs/skeleton';
+  import { AppShell, Modal, initializeStores, getModalStore } from '@skeletonlabs/skeleton';
   import { TypeAreaStore } from '$lib/stores/TypeAreaStore';
 
   export let data;
 
+  // Initialize stores for Skeleton Modal
+  initializeStores();
+  
   function restartTypeArea() {
     $TypeAreaStore.restart = !$TypeAreaStore.restart
   }
 </script>
 
 
+<Modal />
 <!-- AppShell -->
 <AppShell scrollbarGutter="stable">
   <!-- Header/Navbar -->

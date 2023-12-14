@@ -1,7 +1,9 @@
 <!-- Script -->
 <script>
 	import Word from '$lib/components/Word.svelte';
+    import { VerseState } from '$lib/constants/verse_state';
 	import { TypeAreaStore } from '$lib/stores/TypeAreaStore';
+	import { getModalStore } from '@skeletonlabs/skeleton';
 
 	/**
 	 * Props
@@ -15,6 +17,9 @@
 	 * Private State
 	 */
 
+	// Modal for bible verse query
+	const modalStore = getModalStore();
+	
 	// Flag that's switched when user finishes/resets type area.
 	let wpm = undefined;
 
@@ -89,18 +94,56 @@
 	}
 
 	/**
-	 * Updates the `TypeArea` by updating the `TypeAreaStore` restart value
+	 * Updates the `TypeArea` by flipping the `TypeAreaStore` restart value
 	 */
 	function restartTypeArea() {
 		$TypeAreaStore.restart = !$TypeAreaStore.restart
 	}
-	
+
+	/**
+	 * Pops up the Skeleton Modal to the user to search their bible verse.
+	 * Asynchronously fetches verse and updates `TypeAreaStore`.
+	 */
+	function searchBibleVerse() {
+		console.log($modalStore[0])
+		const modalSettings = {
+			type: 'prompt',
+			title: 'Search For Bible Verse(s)',
+			valueAttr: {
+				placeholder: 'John 3:16-20'
+			},
+			response: async (verse) => {
+				console.log(`User is querying for ${verse}`)
+
+				// "Cancel" button case
+				if (verse === false) {
+					return
+				}
+				$TypeAreaStore.verse = VerseState.Loading
+				try {
+					const res = await fetch(`https://bible-api.com/${verse}`);
+					const json = await res.json();
+
+					// Handle the different possible cases from "bible-api" and fetching
+					if (json.error) {
+						$TypeAreaStore.verse = VerseState.APIError
+					}
+
+					else {
+						$TypeAreaStore.verse = json.text
+					}
+				} catch (e) {
+					$TypeAreaStore.verse = VerseState.JSError
+				}
+			}
+		}
+		modalStore.trigger(modalSettings)
+	}
 </script>
 
 
 <!-- Markup -->
 <svelte:window on:keydown={onkeydown}/>
-
 <div>
 	<!-- Game On -->
 	{#if !wpm} 
@@ -125,7 +168,7 @@
 	<button type="button" class="btn-icon text-primary-600" on:click={restartTypeArea}>
 		<i class="fas fa-redo"></i>
 	</button>
-	<button type="button" class="btn-icon text-primary-600">
+	<button type="button" class="btn-icon text-primary-600" on:click={searchBibleVerse}>
 		<i class="fas fa-search"></i>
 	</button>
 </div>
